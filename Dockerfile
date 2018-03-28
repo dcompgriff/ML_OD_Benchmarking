@@ -6,6 +6,7 @@ RUN apt-get update -y \
 
 RUN git clone https://github.com/dcompgriff/ML_OD_Benchmarking.git
 WORKDIR "/ML_OD_Benchmarking"
+RUN chmod a+rwx *
 
 # CMD python hello_condor_docker.py
 
