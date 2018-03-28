@@ -17,7 +17,7 @@ error = hello-gpu-chtc_$(Cluster)_$(Process).err
 #  output (or "screen output").
 #  $(Process) will be a integer number for each job, starting with "0"
 #  and increasing for the relevant number of jobs.
-executable = hello_condor_docker.py
+executable = /ML_OD_Benchmarking/hello_condor_docker.py
 arguments = $(Process)
 output = hello-gpu-chtc_$(Cluster)_$(Process).out
 #
@@ -35,4 +35,4 @@ request_memory = 1GB
 request_disk = 1MB
 #
 # Tell HTCondor to run 3 instances of our job:
-queue 3
+queue 1
