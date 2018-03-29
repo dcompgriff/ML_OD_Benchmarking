@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Run the demo CNN image labeling.
+mkdir /tmp/test_out
+
+python hello_condor_docker.py
+
+# Zip the output files in output.zip
+zip -r out.zip /tmp/test_out/
+
+
+
+
+
+
