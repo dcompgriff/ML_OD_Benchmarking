@@ -34,7 +34,7 @@ transfer_output_files = output.zip
 #  each job will need on the computer where it runs.
 request_cpus = 1
 request_gpus = 1
-request_memory = 15GB
+request_memory = 13GB
 request_disk = 1GB
 #
 # Tell HTCondor to run 3 instances of our job:
