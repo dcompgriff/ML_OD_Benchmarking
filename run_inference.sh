@@ -10,7 +10,8 @@ python2 tools/infer_simple.py \
     demo
 
 # Zip the output files in output.zip
-zip -r out.zip /tmp/test_out/
+#zip -r out.zip /tmp/test_out/
+tar -cvf output.tar /tmp/test_out
 
 
 

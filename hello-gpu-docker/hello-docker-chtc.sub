@@ -8,7 +8,7 @@
 #  assigned to this set of jobs at the time of submission.
 universe = docker
 docker_image = dcompgriff/ml_od_benchmarking:latest
-requirements = (OpSysMajorVer == 7)
+#requirements = (OpSysMajorVer == 7)
 log = hello-docker-chtc_$(Cluster).log
 error = hello-docker-chtc_$(Cluster)_$(Process).err
 #
@@ -34,7 +34,7 @@ transfer_output_files = output.tar
 # Tell HTCondor what amount of compute resources
 #  each job will need on the computer where it runs.
 request_cpus = 1
-request_memory = 500MB
+request_memory = 1GB
 request_disk = 300MB
 #
 # Tell HTCondor to run 3 instances of our job:
