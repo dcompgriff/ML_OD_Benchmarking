@@ -10,6 +10,14 @@ ENV LD_LIBRARY_PATH /usr/local/caffe2_build/lib:${LD_LIBRARY_PATH}
 # Install Python dependencies
 RUN pip install numpy>=1.13 pyyaml>=3.12 matplotlib opencv-python>=3.2 setuptools Cython mock scipy
 
+# Install the cs766 project repo.
+WORKDIR /
+RUN git clone https://github.com/dcompgriff/ML_OD_Benchmarking.git
+WORKDIR /ML_OD_Benchmarking
+RUN pwd
+RUN chmod a+rwx *
+WORKDIR /var/lib/jenkins
+
 # Install the COCO API
 RUN git clone https://github.com/cocodataset/cocoapi.git /cocoapi
 WORKDIR /cocoapi/PythonAPI

@@ -2,6 +2,7 @@
 
 # Run the demo CNN image labeling.
 mkdir /tmp/test_out
+cd /detectron
 python2 tools/infer_simple.py \
     --cfg configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
     --output-dir /tmp/test_out/ \
