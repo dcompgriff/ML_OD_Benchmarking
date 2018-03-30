@@ -36,8 +36,3 @@ RUN make ops
 # Go to Detectron root
 WORKDIR /detectron
 
-# Test commands for installing nvidia drivers.
-RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-RUN sh -c 'echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list'
-RUN apt-get update && sudo apt-get install -y --no-install-recommends linux-headers-generic dkms cuda-drivers
-
