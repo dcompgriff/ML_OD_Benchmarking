@@ -46,7 +46,8 @@ your desired job.
 then run the docker container with the git repo (current directory) mounted to the
 root folder at "/ML_OD_Benchmarking". It will also open up a bash terminal
 at the root directory.
-2) Run "cd /ML_OD_Benckmarking/detectron_scripts"
+2) Run "cd /ML_OD_Benckmarking/detectron_scripts &", (Note this is run in the background
+so you can track each log process)
 3) Run "./benchmark.sh", which will run each of the deep nets using images
 from "/ML_OD_Benchmarking/data/inputs/", and will output their results
 to "/ML_OD_Benchmarking/data/outputs/<model_name>.json"
