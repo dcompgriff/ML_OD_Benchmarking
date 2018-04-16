@@ -37,10 +37,19 @@ docker-machine create --driver amazonec2 \
 #####################################################################
 #RUNNING THE CODE WITH DOCKER.
 #####################################################################
-nvidia-docker build -t gpu .
-nvidia-docker run -it \
-    --mount type=bind,source="$(pwd)",target=/ML_OD_Benchmarking \
-    gpu /bin/bash
+0) Ssh into the gpu machine, and run "screen" to open a new screen session
+(alternatively you can connect to a previous screen session). This is important
+as screen allows you to reconnect to a previous ssh session and check the output
+of a running job so that you don't have to stay ssh'd into the computer running
+your desired job.
+1) Run "./run_docker.sh". This command will build the desired docker container, and will
+then run the docker container with the git repo (current directory) mounted to the
+root folder at "/ML_OD_Benchmarking". It will also open up a bash terminal
+at the root directory.
+2) Run "cd /ML_OD_Benckmarking/detectron_scripts"
+3) Run "./benchmark.sh", which will run each of the deep nets using images
+from "/ML_OD_Benchmarking/data/inputs/", and will output their results
+to "/ML_OD_Benchmarking/data/outputs/<model_name>.json"
 
 
 
