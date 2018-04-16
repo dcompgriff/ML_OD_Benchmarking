@@ -10,6 +10,9 @@ ENV LD_LIBRARY_PATH /usr/local/caffe2_build/lib:${LD_LIBRARY_PATH}
 # Install Python dependencies
 RUN pip install numpy>=1.13 pyyaml>=3.12 matplotlib opencv-python>=3.2 setuptools Cython mock scipy scikit-learn
 
+# Install emacs
+RUN apt-get update && apt-get install emacs
+
 # Install the cs766 project repo.
 #WORKDIR /
 #RUN git clone https://github.com/dcompgriff/ML_OD_Benchmarking.git

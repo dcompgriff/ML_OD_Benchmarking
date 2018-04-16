@@ -95,7 +95,7 @@ def parse_args():
 def main(args):
     logger = logging.getLogger(__name__)
     merge_cfg_from_file(args.cfg)
-    cfg.NUM_GPUS = 8
+    cfg.NUM_GPUS = 1
     args.weights = cache_url(args.weights, cfg.DOWNLOAD_CACHE)
     assert_and_infer_cfg(cache_urls=False)
     model = infer_engine.initialize_model_from_cfg(args.weights)
@@ -115,10 +115,10 @@ def main(args):
         # Create the output object.
         imgObject = {"img_name": im_name, "score": [], "bbox": [], "classes": []}
 
-        out_name = os.path.join(
-            args.output_dir, '{}'.format(os.path.basename(im_name) + '.pdf')
-        )
-        logger.info('Processing {} -> {}'.format(im_name, out_name))
+        #out_name = os.path.join(
+        #    args.output_dir, '{}'.format(os.path.basename(im_name) + '.pdf')
+        #)
+        logger.info('Processing {} -> {}'.format(im_name, args.cfg.split(".")[0] + '.json'))
         im = cv2.imread(im_name)
         timers = defaultdict(Timer)
         t = time.time()
@@ -129,23 +129,21 @@ def main(args):
 
         # Use the utils.vis package to get the set of classes.
         boxes, segms, keyps, classes = vis_utils.convert_from_cls_format(cls_boxes, cls_segms, cls_keyps)
-        imgObject["score"] = list(boxes[:, 4]))
-        imgObject["bbox"] = list(boxes[:, :3])
-        imgObject["classes"] = list(classes)
+        imgObject["scores"] = boxes[:, 4].tolist()
+        imgObject["bboxes"] = boxes[:, :3].tolist()
+        imgObject["classes"] = classes
         # Add this image to the final array of objects.
         imgObjectArray.append(imgObject)
             
         logger.info('Inference time: {:.3f}s'.format(time.time() - t))
         for k, v in timers.items():
             logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
-        if i == 0:
-            logger.info(
-                ' \ Note: inference on the first image will be slower than the '
-                'rest (caches and auto-tuning need to warm up)'
-            )
-        import pdb; pdb.set_trace()
+    
+    #import pdb; pdb.set_trace()
+    outObjName = os.path.join(args.output_dir, os.path.basename(args.cfg).split(".")[0] + '.json')
+    with open(outObjName, 'w') as outfile:
+        json.dump(imgObjectArray, outfile)
 
-    json.dumps(imgObjectArray, "")
 
             
 '''
