@@ -34,7 +34,15 @@ docker-machine create --driver amazonec2 \
 
 
 
-Talk to trish about printing.
+#####################################################################
+#RUNNING THE CODE WITH DOCKER.
+#####################################################################
+nvidia-docker build -t gpu .
+nvidia-docker run -it --mount type=bind,source="$(pwd)"/data,target=/data \
+	      	      --mount type=bind,source="$(pwd)",target=/ML_OD_Benchmarking \
+		      gpu /bin/bash
+
+
 
 
 
