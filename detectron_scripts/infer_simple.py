@@ -93,7 +93,13 @@ def parse_args():
 
 
 def main(args):
+
+    #logger = logging.getLogger(__name__)
+
+    outLogName = os.path.join(args.output_dir, os.path.basename(args.cfg).split(".")[0] + '.log')
+    logging.basicConfig(filename=outLogName, level=logging.INFO, format= '%(levelname)s %(filename)s:%(lineno)4d: %(message)s', filemode='w')
     logger = logging.getLogger(__name__)
+    
     merge_cfg_from_file(args.cfg)
     cfg.NUM_GPUS = 1
     args.weights = cache_url(args.weights, cfg.DOWNLOAD_CACHE)
@@ -111,6 +117,7 @@ def main(args):
     imgObjectArray = []
 
     # For each image, get the list of bounding boxes, classes, and keypoints.
+    # numFiles = len(list(enumerate(im_list)))
     for i, im_name in enumerate(im_list):
         # Create the output object.
         imgObject = {"img_name": im_name, "score": [], "bbox": [], "classes": []}
@@ -118,7 +125,7 @@ def main(args):
         #out_name = os.path.join(
         #    args.output_dir, '{}'.format(os.path.basename(im_name) + '.pdf')
         #)
-        logger.info('Processing {} -> {}'.format(im_name, args.cfg.split(".")[0] + '.json'))
+        logger.info('Processing {}: {} -> {}'.format(str(i+1), im_name, args.cfg.split(".")[0] + '.json'))
         im = cv2.imread(im_name)
         timers = defaultdict(Timer)
         t = time.time()
@@ -135,9 +142,9 @@ def main(args):
         # Add this image to the final array of objects.
         imgObjectArray.append(imgObject)
             
-        logger.info('Inference time: {:.3f}s'.format(time.time() - t))
-        for k, v in timers.items():
-            logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
+        #logger.info('Inference time: {:.3f}s'.format(time.time() - t))
+        #for k, v in timers.items():
+        #    logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
     
     #import pdb; pdb.set_trace()
     outObjName = os.path.join(args.output_dir, os.path.basename(args.cfg).split(".")[0] + '.json')
@@ -165,6 +172,6 @@ def main(args):
 
 if __name__ == '__main__':
     workspace.GlobalInit(['caffe2', '--caffe2_log_level=0'])
-    utils.logging.setup_logging(__name__)
+    #utils.logging.setup_logging(__name__)
     args = parse_args()
     main(args)
