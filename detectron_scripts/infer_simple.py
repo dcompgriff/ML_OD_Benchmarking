@@ -25,6 +25,7 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 from collections import defaultdict
+import json
 import argparse
 import cv2  # NOQA (Must import before importing caffe2 due to bug in cv2)
 import glob
@@ -105,7 +106,15 @@ def main(args):
     else:
         im_list = [args.im_or_folder]
 
+    # Set up the array of dicts that will eventually be converted to a
+    # json output file.
+    imgObjectArray = []
+
+    # For each image, get the list of bounding boxes, classes, and keypoints.
     for i, im_name in enumerate(im_list):
+        # Create the output object.
+        imgObject = {"img_name": im_name, "score": [], "bbox": [], "classes": []}
+
         out_name = os.path.join(
             args.output_dir, '{}'.format(os.path.basename(im_name) + '.pdf')
         )
@@ -117,6 +126,15 @@ def main(args):
             cls_boxes, cls_segms, cls_keyps = infer_engine.im_detect_all(
                 model, im, None, timers=timers
             )
+
+        # Use the utils.vis package to get the set of classes.
+        boxes, segms, keyps, classes = vis_utils.convert_from_cls_format(cls_boxes, cls_segms, cls_keyps)
+        imgObject["score"] = list(boxes[:, 4]))
+        imgObject["bbox"] = list(boxes[:, :3])
+        imgObject["classes"] = list(classes)
+        # Add this image to the final array of objects.
+        imgObjectArray.append(imgObject)
+            
         logger.info('Inference time: {:.3f}s'.format(time.time() - t))
         for k, v in timers.items():
             logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
@@ -125,7 +143,11 @@ def main(args):
                 ' \ Note: inference on the first image will be slower than the '
                 'rest (caches and auto-tuning need to warm up)'
             )
+        import pdb; pdb.set_trace()
 
+    json.dumps(imgObjectArray, "")
+
+            
 '''
         vis_utils.vis_one_image(
             im[:, :, ::-1],  # BGR -> RGB for visualization
