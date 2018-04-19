@@ -18,8 +18,6 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/e2e_faster_rcnn_R-50-C4_2x.yaml/model_final.pkl \
 	/ML_OD_Benchmarking/data/inputs
 
-
-
 elif [ $ARG1 == "full" ]
 then 
 # No "test" argument was given.
