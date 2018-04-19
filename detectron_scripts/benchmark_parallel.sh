@@ -69,7 +69,7 @@ CUDA_VISIBLE_DEVICES=3 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simpl
 	--wts  /ML_OD_Benchmarking/detectron-download-cache/e2e_faster_rcnn_X-101-64x4d-FPN_2x.yaml/model_final.pkl \
 	/ML_OD_Benchmarking/data/inputs &
 
-
+wait
 
 # Run code for X-101-32X8D-FPN-2x
 #python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
@@ -92,8 +92,6 @@ CUDA_VISIBLE_DEVICES=4 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simpl
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/e2e_mask_rcnn_R-50-C4_2x.yaml/model_final.pkl \
 	/ML_OD_Benchmarking/data/inputs &
-
-
 
 # Run code for MaskRCNN R-50-FPN-2x
 CUDA_VISIBLE_DEVICES=5 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
@@ -144,7 +142,6 @@ CUDA_VISIBLE_DEVICES=7 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simpl
 	--wts /ML_OD_Benchmarking/detectron-download-cache/retinanet_R-50-FPN_2x.yaml/model_final.pkl \
 	/ML_OD_Benchmarking/data/inputs &
 
-#Wait here bc there are only 8 GPUs on the system to be used.
 wait
 
 # Run code for Retinanet R-101-FPN-2x
