@@ -3,3 +3,4 @@ data/outputs/*.log
 data/inputs/*
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
+detectron-download-cache/*

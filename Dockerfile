@@ -40,3 +40,8 @@ RUN make ops
 #WORKDIR /detectron
 WORKDIR /
 
+# Copy in the caching python file and script.
+#RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
+#COPY detectron_scripts/cache_models.py /cache_models.py
+#COPY detectron_scripts/cache.sh /cache.sh
+#RUN ./cache.sh
