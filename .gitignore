@@ -1,4 +1,5 @@
 data/outputs/*.log
+data/outputs/home_sys_outputs/
 .idea/*
 data/inputs/annotations/*
 data/inputs/val2017/*
