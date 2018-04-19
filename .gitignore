@@ -1,6 +1,7 @@
 data/outputs/*.log
 .idea/*
-data/inputs/*
+data/inputs/annotations/*
+data/inputs/val2017/*
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
 detectron-download-cache/*
