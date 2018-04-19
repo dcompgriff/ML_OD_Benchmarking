@@ -32,4 +32,4 @@ fi
 
 sudo nvidia-docker run -it \
      --mount type=bind,source="$(pwd)",target=/ML_OD_Benchmarking \
-    gpu /bin/bash
+    gpu /ML_OD_Benchmarking/detectron_scripts/benchmark.sh

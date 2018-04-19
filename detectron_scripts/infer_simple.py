@@ -135,13 +135,21 @@ def main(args):
             )
 
         # Use the utils.vis package to get the set of classes.
-        boxes, segms, keyps, classes = vis_utils.convert_from_cls_format(cls_boxes, cls_segms, cls_keyps)
-        imgObject["scores"] = boxes[:, 4].tolist()
-        imgObject["bboxes"] = boxes[:, :3].tolist()
-        imgObject["classes"] = classes
-        # Add this image to the final array of objects.
-        imgObjectArray.append(imgObject)
+        try:
+            boxes, segms, keyps, classes = vis_utils.convert_from_cls_format(cls_boxes, cls_segms, cls_keyps)
+            imgObject["scores"] = boxes[:, 4].tolist()
+            imgObject["bboxes"] = boxes[:, :3].tolist()
+            imgObject["classes"] = classes
+            # Add this image to the final array of objects.
+            imgObjectArray.append(imgObject)
+        except:
+            imgObject["scores"] = []
+            imgObject["bboxes"] = []
+            imgObject["classes"] = []
+            # Add this image to the final array of objects.
+            imgObjectArray.append(imgObject)
             
+        
         #logger.info('Inference time: {:.3f}s'.format(time.time() - t))
         #for k, v in timers.items():
         #    logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
