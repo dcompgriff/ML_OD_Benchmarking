@@ -11,7 +11,7 @@ then
 echo "Running first object detection model only..."    
 
 # Run code for R-50-C4 2x outputs.
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_R-50-C4_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -34,7 +34,7 @@ start=`date +%s`
 #############################################################################################
 
 # Run code for R-50-C4-2x outputs.
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_R-50-C4_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -44,7 +44,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for R-50-RPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_R-50-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -54,7 +54,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for R-101-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_R-101-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -64,7 +64,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for X-101-64x4d-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_X-101-64x4d-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -74,7 +74,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for X-101-32X8D-FPN-2x
-#python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+#python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 #	--cfg /detectron/configs/12_2017_baselines/e2e_faster_rcnn_X-101-32x8d-FPN_2x.yaml \
 #	--output-dir /ML_OD_Benchmarking/data/outputs \
 #	--image-ext jpg \
@@ -88,7 +88,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #############################################################################################
 
 # Run code for MaskRCNN R-50-RPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_R-50-C4_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -98,7 +98,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for MaskRCNN R-50-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_R-50-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -108,17 +108,17 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for MaskRCNN R-101-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts https://s3-us-west-2.amazonaws.com/detectron/35861858/12_2017_baselines/e2e_mask_rcnn_R-101-FPN_2x.yaml.02_32_51.SgT4y1cO/output/train/coco_2014_train:coco_2014_valminusminival/generalized_rcnn/model_final.pkl \
 	/ML_OD_Benchmarking/data/inputs
 
-#rm -r /tmp/detectron-download-cache
+rm -r /tmp/detectron-download-cache
 
 # Run code for MaskRCNN X-101-64X4d-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_X-101-64x4d-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -128,7 +128,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for MaskRCNN X-101-32X8d-FPN-2x
-#python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+#python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 #	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_X-101-32x8d-FPN_2x.yaml \
 #	--output-dir /ML_OD_Benchmarking/data/outputs \
 #	--image-ext jpg \
@@ -142,7 +142,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #############################################################################################
 
 # Run code for Retinanet R-50-FPN-2X
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/retinanet_R-50-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -152,7 +152,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for Retinanet R-101-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/retinanet_R-101-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -162,7 +162,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for Retinanet X-101-64X4d-FPN-2x
-python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 	--cfg /detectron/configs/12_2017_baselines/retinanet_X-101-64x4d-FPN_2x.yaml \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
@@ -172,7 +172,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #rm -r /tmp/detectron-download-cache
 
 # Run code for Retinanet X-101-32X8d-FPN-2x
-#python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+#python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 #	--cfg /detectron/configs/12_2017_baselines/retinanet_X-101-32x8d-FPN_2x.yaml \
 #	--output-dir /ML_OD_Benchmarking/data/outputs \
 #	--image-ext jpg \
@@ -186,7 +186,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 #############################################################################################
 
 # Run code for THE BIG BOY. This network is massive, and takes 12+ seconds per image to detect.
-#python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
+#python2 /ML_OD_Benchmarking/detectron_scripts/cache_models.py \
 #	--cfg /detectron/configs/12_2017_baselines/e2e_mask_rcnn_X-152-32x8d-FPN-IN5k_1.44x.yaml \
 #	--output-dir /ML_OD_Benchmarking/data/outputs \
 #	--image-ext jpg \
