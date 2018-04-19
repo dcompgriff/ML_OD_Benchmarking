@@ -103,9 +103,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/e2e_mask_rcnn_R-50-FPN_2x.yaml/model_final.pkl \
-	/ML_OD_Benchmarking/data/inputs
-
-
+	/ML_OD_Benchmarking/data/inputs 
 
 # Run code for MaskRCNN R-101-FPN-2x
 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
@@ -113,8 +111,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/e2e_mask_rcnn_R-101-FPN_2x.yaml/model_final.pkl \
-	/ML_OD_Benchmarking/data/inputs
-
+	/ML_OD_Benchmarking/data/inputs 
 
 
 #(NOTE: This currently errors out!) Run code for MaskRCNN X-101-64X4d-FPN-2x
@@ -147,7 +144,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/retinanet_R-50-FPN_2x.yaml/model_final.pkl \
-	/ML_OD_Benchmarking/data/inputs
+	/ML_OD_Benchmarking/data/inputs 
 
 
 
@@ -157,7 +154,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/retinanet_R-101-FPN_2x.yaml/model_final.pkl \
-	/ML_OD_Benchmarking/data/inputs
+	/ML_OD_Benchmarking/data/inputs 
 
 
 
@@ -167,7 +164,7 @@ python2 /ML_OD_Benchmarking/detectron_scripts/infer_simple.py \
 	--output-dir /ML_OD_Benchmarking/data/outputs \
 	--image-ext jpg \
 	--wts /ML_OD_Benchmarking/detectron-download-cache/retinanet_X-101-64x4d-FPN_2x.yaml/model_final.pkl \
-	/ML_OD_Benchmarking/data/inputs
+	/ML_OD_Benchmarking/data/inputs 
 
 
 
