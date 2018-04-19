@@ -186,7 +186,7 @@ CUDA_VISIBLE_DEVICES=1 python2 /ML_OD_Benchmarking/detectron_scripts/infer_simpl
 #	--wts https://s3-us-west-2.amazonaws.com/detectron/37129812/12_2017_baselines/e2e_mask_rcnn_X-152-32x8d-FPN-IN5k_1.44x.yaml.09_35_36.8pzTQKYK/output/train/coco_2014_train:coco_2014_valminusminival/generalized_rcnn/model_final.pkl \
 #	/ML_OD_Benchmarking/data/inputs &
 
-
+wait
 
 echo "Generated all jobs, waiting for jobs to complete..."
 end=`date +%s`
