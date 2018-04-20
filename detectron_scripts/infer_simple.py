@@ -168,6 +168,7 @@ def main(args):
             with open(outObjName, 'w') as outfile:
                 json.dump(imgObjectArray, outfile)
             currentCheckpoint += 1
+            imgObjectArray = []
 
 
 
