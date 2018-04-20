@@ -4,6 +4,7 @@ data/outputs/home_sys_outputs/
 data/inputs/annotations/*
 data/inputs/val2017/*
 data/inputs/*.jpg
+data/inputs/transformed
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
 detectron-download-cache/*
