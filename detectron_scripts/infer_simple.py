@@ -87,7 +87,7 @@ def parse_args():
         default='jpg',
         type=str
     )
-n    parser.add_argument(
+    parser.add_argument(
         'im_or_folder', help='image or folder of images', default=None
     )
     if len(sys.argv) == 1:
