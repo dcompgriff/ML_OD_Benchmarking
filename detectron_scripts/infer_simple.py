@@ -31,6 +31,7 @@ import cv2  # NOQA (Must import before importing caffe2 due to bug in cv2)
 import glob
 import logging
 import os
+import shutil
 import sys
 import time
 
@@ -51,6 +52,9 @@ c2_utils.import_detectron_ops()
 # OpenCL may be enabled by default in OpenCV3; disable it because it's not
 # thread safe and causes unwanted GPU memory allocations.
 cv2.ocl.setUseOpenCL(False)
+
+# Interval at which to save intermediate .json output to disk.
+CHECKPOINT_INTERVAL = 2000
 
 
 def parse_args():
@@ -83,7 +87,7 @@ def parse_args():
         default='jpg',
         type=str
     )
-    parser.add_argument(
+n    parser.add_argument(
         'im_or_folder', help='image or folder of images', default=None
     )
     if len(sys.argv) == 1:
@@ -112,19 +116,27 @@ def main(args):
     else:
         im_list = [args.im_or_folder]
 
+    # Set up the output
+    #import pdb; pdb.set_trace()
+    outputJsonPath = os.path.join(args.output_dir, os.path.basename(args.cfg).split(".")[0])
+    if not os.path.exists(outputJsonPath):
+        # Make the directory if it doesn't exist. Note, this will error out if
+        # the directory exists. This is intentional so that a user won't
+        # accidentally overwrite previously generated results.
+        os.makedirs(outputJsonPath)
+        
+        
     # Set up the array of dicts that will eventually be converted to a
     # json output file.
     imgObjectArray = []
-
+    currentCheckpoint = 0
     # For each image, get the list of bounding boxes, classes, and keypoints.
     # numFiles = len(list(enumerate(im_list)))
     for i, im_name in enumerate(im_list):
         # Create the output object.
-        imgObject = {"img_name": im_name, "score": [], "bbox": [], "classes": []}
+        imgObject = {"img_name": im_name, "scores": [], "bboxes": [], "classes": []}
 
-        #out_name = os.path.join(
-        #    args.output_dir, '{}'.format(os.path.basename(im_name) + '.pdf')
-        #)
+        # Perform object detection for each image.
         logger.info('Processing {}: {} -> {}'.format(str(i+1), im_name, args.cfg.split(".")[0] + '.json'))
         im = cv2.imread(im_name)
         timers = defaultdict(Timer)
@@ -138,7 +150,7 @@ def main(args):
         try:
             boxes, segms, keyps, classes = vis_utils.convert_from_cls_format(cls_boxes, cls_segms, cls_keyps)
             imgObject["scores"] = boxes[:, 4].tolist()
-            imgObject["bboxes"] = boxes[:, :3].tolist()
+            imgObject["bboxes"] = boxes[:, :4].tolist()
             imgObject["classes"] = classes
             # Add this image to the final array of objects.
             imgObjectArray.append(imgObject)
@@ -148,14 +160,21 @@ def main(args):
             imgObject["classes"] = []
             # Add this image to the final array of objects.
             imgObjectArray.append(imgObject)
-            
-        
-        #logger.info('Inference time: {:.3f}s'.format(time.time() - t))
-        #for k, v in timers.items():
-        #    logger.info(' | {}: {:.3f}s'.format(k, v.average_time))
-    
+
+
+        # If len of data is at checkpoint length, then write the data out to a file.
+        if len(imgObjectArray) >= CHECKPOINT_INTERVAL:
+            outObjName = os.path.join(outputJsonPath, str(currentCheckpoint) + "_" + os.path.basename(args.cfg).split(".")[0] + '.json')
+            with open(outObjName, 'w') as outfile:
+                json.dump(imgObjectArray, outfile)
+            currentCheckpoint += 1
+
+
+
+    # Write any remaining .json output files to the output folder.
     #import pdb; pdb.set_trace()
-    outObjName = os.path.join(args.output_dir, os.path.basename(args.cfg).split(".")[0] + '.json')
+    #outObjName = os.path.join(outputJsonPath, os.path.basename(args.cfg).split(".")[0] + '.json')
+    outObjName = os.path.join(outputJsonPath, str(currentCheckpoint) + "_" + os.path.basename(args.cfg).split(".")[0] + '.json')
     with open(outObjName, 'w') as outfile:
         json.dump(imgObjectArray, outfile)
 
