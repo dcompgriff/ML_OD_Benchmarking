@@ -3,7 +3,6 @@ This script accepts a path to a directory of images, and applies transformations
 to all of the images in that directory, and saves the resulting images to a new
 sub-directory called "transformed/".
 '''
-from pycocotools.coco import COCO
 import numpy as np
 import skimage.io as io
 import matplotlib.pyplot as plt
@@ -166,12 +165,13 @@ def main(args):
             shutil.rmtree(args.output_dir)
         os.makedirs(args.output_dir)
     else:
-        if os.path.exists(args.output_dir):
+        if not os.path.exists(args.output_dir):
             os.makedirs(args.output_dir)
             
     # For each image, apply the set of transforms, generate new images, and output them to
     # the specified directory.
     for i, im_name in enumerate(im_list):
+        print("Image %d"%i)
         applyAllTransforms(im_name)
 
 
