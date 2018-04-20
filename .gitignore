@@ -4,6 +4,15 @@ data/outputs/home_sys_outputs/
 data/inputs/annotations/*
 data/inputs/val2017/*
 data/inputs/*.jpg
+data/inputs/input0/
+data/inputs/input1/
+data/inputs/input2/
+data/inputs/input3/
+data/inputs/input4/
+data/inputs/input5/
+data/inputs/input6/
+data/inputs/input7/
+data/inputs/reducedval2017/
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
 detectron-download-cache/*
