@@ -54,7 +54,7 @@ c2_utils.import_detectron_ops()
 cv2.ocl.setUseOpenCL(False)
 
 # Interval at which to save intermediate .json output to disk.
-CHECKPOINT_INTERVAL = 2000
+CHECKPOINT_INTERVAL = 3
 
 
 def parse_args():
@@ -168,6 +168,7 @@ def main(args):
             with open(outObjName, 'w') as outfile:
                 json.dump(imgObjectArray, outfile)
             currentCheckpoint += 1
+            imgObjectArray = []
 
 
 
