@@ -121,6 +121,13 @@ def parse_args():
         type=int
     )
     parser.add_argument(
+        '--replace-output-dir',
+        dest='replace_output_dir',
+        help='should the output directory be replaced or not. 1=True 0=False',
+        default=1,
+        type=int
+    )
+    parser.add_argument(
         'im_or_folder', help='image or folder of images', default=None
     )
     if len(sys.argv) == 1:
@@ -154,10 +161,14 @@ def main(args):
         im_list = [args.im_or_folder]
 
     # Check for existence of ouput dir, or make it.
-    if os.path.exists(args.output_dir):
-        shutil.rmtree(args.output_dir)
-    os.makedirs(args.output_dir)
-
+    if args.replace_output_dir == 1:
+        if os.path.exists(args.output_dir):
+            shutil.rmtree(args.output_dir)
+        os.makedirs(args.output_dir)
+    else:
+        if os.path.exists(args.output_dir):
+            os.makedirs(args.output_dir)
+            
     # For each image, apply the set of transforms, generate new images, and output them to
     # the specified directory.
     for i, im_name in enumerate(im_list):
