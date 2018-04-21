@@ -26,6 +26,10 @@ GLOBAL_ARGS = None
 transformerList = []
 transformerNameList = []
 
+
+##Value transforms
+
+
 # Add gaussian blurs (Focus type blurs)
 for mSigma in [1, 10, 20]:
     transformerList.append(iaa.Sequential([
@@ -95,6 +99,45 @@ for num in [1]:
     ]))
     transformerNameList.append('elastic_' + str(num).replace('.','p') + '__')
 
+    
+##Space transforms
+
+# Change image scale keeping aspect ratio same ( same scaling of width and height)
+for scale in [.9,.75,.5]:
+    transformerList.append(iaa.Sequential([
+        iaa.Scale(scale)
+    ]))
+    transformerNameList.append('scaled_' + str(scale).replace('.','p') + '__')
+# Change image scale not keeping aspect ratio same ( unequal scaling of width and height)
+for scale in [(.9,1.0), (.75,1.0), (1.0,.9), (1.0,.75)]:#90% or 75% of one of the dimensions
+    transformerList.append(iaa.Sequential([
+        iaa.Scale({"height": scale[0], "width": scale[1]})
+    ]))
+    transformerNameList.append('scaled_' + str(scale).replace('.','p') + '__')
+# Change orientation by few small angles and few large angles
+for theta in [3,5,10,45,60,90]:#all rotations are clockwise for now
+    transformerList.append(iaa.Sequential([
+        iaa.Affine(rotate=theta)
+    ]))
+    transformerNameList.append('rotated_' + str(theta).replace('.','p') + '__')
+# Flip images horizontly
+for _ in [1]:
+    transformerList.append(iaa.Sequential([
+        iaa.Fliplr(1.0)
+    ]))
+    transformerNameList.append('flipH__')
+# Flip images vertically
+for _ in [1]:
+    transformerList.append(iaa.Sequential([
+        iaa.Flipud(1.0)
+    ]))
+    transformerNameList.append('flipV__')
+# Random pixel dropout, 10% of pixels
+for _ in [1]:
+    transformerList.append(iaa.Sequential([
+        iaa.Dropout(p=0.1)
+    ]))
+    transformerNameList.append('dropout__')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Image Transformer')
