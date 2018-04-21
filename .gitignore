@@ -18,3 +18,4 @@ data/inputs/reducedval2017/
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
 detectron-download-cache/*
+*.bat
