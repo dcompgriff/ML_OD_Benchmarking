@@ -98,24 +98,36 @@ for num in [1]:
         iaa.ElasticTransformation(alpha=(5.0), sigma=0.25)
     ]))
     transformerNameList.append('elastic_' + str(num).replace('.','p') + '__')
+# invert every pixel, i.e. do a 255-v per channel
+for num in [1]:
+    transformerList.append(iaa.Sequential([
+        iaa.Invert(1.0)
+    ]))
+    transformerNameList.append('invert__')
 
     
 ##Space transforms
 
 # Change image scale keeping aspect ratio same ( same scaling of width and height)
-for scale in [.9,.75,.5]:
+for r in [1.25,.75,.5]:
     transformerList.append(iaa.Sequential([
-        iaa.Scale(scale)
+        iaa.Affine(scale=r)
     ]))
-    transformerNameList.append('scaled_' + str(scale).replace('.','p') + '__')
+    transformerNameList.append('scaled_' + str(r).replace('.','p') + '__')
 # Change image scale not keeping aspect ratio same ( unequal scaling of width and height)
-for scale in [(.9,1.0), (.75,1.0), (1.0,.9), (1.0,.75)]:#90% or 75% of one of the dimensions
+for r in [(1.25,1.0), (.75,1.0), (1.0,1.25), (1.0,.75)]:#125% or 75% of one of the dimensions
     transformerList.append(iaa.Sequential([
-        iaa.Scale({"height": scale[0], "width": scale[1]})
+        iaa.Affine(scale={"x": r[0], "y": r[1]})
     ]))
-    transformerNameList.append('scaled_' + str(scale).replace('.','p') + '__')
+    transformerNameList.append('scaled_' + str(r).replace('.','p') + '__')
+# translate image by +-10% towards each of corners(diagonally) or edges(horizontally and vertically)
+for tr in [(.1,.1), (.1,-.1), (-.1,.1), (-.1,-.1), (.1,0), (-.1,0), (0,.1), (0,-.1)]:
+    transformerList.append(iaa.Sequential([
+        iaa.Affine(translate_percent={"x":tr[0], "y":tr[1]})
+    ]))
+    transformerNameList.append('translate_' + str(tr).replace('.','p') + '__')
 # Change orientation by few small angles and few large angles
-for theta in [3,5,10,45,60,90]:#all rotations are clockwise for now
+for theta in [3,5,10,45,60,90]:
     transformerList.append(iaa.Sequential([
         iaa.Affine(rotate=theta)
     ]))
@@ -132,7 +144,7 @@ for _ in [1]:
         iaa.Flipud(1.0)
     ]))
     transformerNameList.append('flipV__')
-# Random pixel dropout, 10% of pixels
+# Random pixel dropout, 10% of pixels, like salt and pepper noise without salt
 for _ in [1]:
     transformerList.append(iaa.Sequential([
         iaa.Dropout(p=0.1)
