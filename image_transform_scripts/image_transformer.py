@@ -150,6 +150,12 @@ for _ in [1]:
         iaa.Dropout(p=0.1)
     ]))
     transformerNameList.append('dropout__')
+# Good local distortions, Refer at http://imgaug.readthedocs.io/en/latest/source/augmenters.html#piecewiseaffine
+for z in [0.01,0.03,0.06,0.1]:
+    transformerList.append(iaa.Sequential([
+        iaa.PiecewiseAffine(scale=z)
+    ]))
+    transformerNameList.append('piecewiseAffine_'+str(z).replace('.','p')+'__')
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Image Transformer')
