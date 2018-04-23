@@ -18,7 +18,7 @@
       
       <guid>https://dcompgriff.github.io/ML_OD_Benchmarking/post/deep-object-detection-benchmarking/</guid>
       <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+ Name Age   Dan 21   Jane 45   We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
     </item>
     
     <item>
