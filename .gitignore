@@ -14,6 +14,7 @@ data/inputs/input5/
 data/inputs/input6/
 data/inputs/input7/
 data/inputs/reducedval2017/
+data/outputs/transformed_outputs/*
 >>>>>>> 918ef5a7f92d3880bdc906c3b98725e3e3336ff4
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
