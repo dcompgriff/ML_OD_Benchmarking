@@ -19,9 +19,9 @@ theme = "hugo-minimalist-theme"
     site_description = "CS766 Deep object detection benchmarking and sensitivity analysis."
     location = "Earth"
     # Link custom assets relative to /static
-    avatar = "img/profile-image.png"
+    avatar = "img/Dan.png"
     header_background = "img/desk.jpg"
-    header_title = "Customizable header title"
+    header_title = "CS 766 Project: Deep Object Detection Network Analysis."
     copyright = "Powered by [Hugo](http://gohugo.io)."
     custom_css = []
     custom_js  = []
