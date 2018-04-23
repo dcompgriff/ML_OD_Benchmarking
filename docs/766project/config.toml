@@ -1,7 +1,7 @@
-baseurl = "https://example.org/"
+baseurl = "https://dcompgriff.github.io/ML_OD_Benchmarking"
 languageCode = "en-us"
-title = "John Doe's blog"
-publishDir = "docs"
+title = "CS766 Project"
+publishDir = "../"
 # Define how many pages appear per site
 paginate = 10
 # Enable comments powered by Disqus by entering your disqus shortname
@@ -15,8 +15,8 @@ theme = "hugo-minimalist-theme"
 #themesDir = "../.."
 
 [params]
-    site_author = "John Doe"
-    site_description = "The awesome blog of John Doe."
+    site_author = "Dan Griffin"
+    site_description = "CS766 Deep object detection benchmarking and sensitivity analysis."
     location = "Earth"
     # Link custom assets relative to /static
     avatar = "img/profile-image.png"
@@ -33,11 +33,11 @@ theme = "hugo-minimalist-theme"
     # Add your social network accounts to the profile section on the left
     # by entering your username. The links to your account will be
     # create automatically.
-    twitter   = "spf13"
+    twitter   = ""
     facebook  = ""
     linkedin  = ""
     behance   = ""
     dribbble  = ""
     instagram = ""
-    github    = "digitalcraftsman"
+    github    = "dcompgriff"
     gplus     = ""
