@@ -31,79 +31,79 @@ transformerNameList = []
 
 
 # Add gaussian blurs (Focus type blurs)
-for mSigma in [1, 10, 20]:
-    transformerList.append(iaa.Sequential([
-        iaa.GaussianBlur(sigma=(mSigma))  # blur images with a sigma of 0 to 3.0
-    ]))
-    transformerNameList.append('gaussianblur_' + str(mSigma).replace('.','p') + '__')
-# Add super pixel transforms. (Region color and shape based sensitivity)
-for pReplace in [0.1, 0.5, 0.85]:
-    transformerList.append(iaa.Sequential([
-        iaa.Superpixels(p_replace=pReplace, n_segments=128)
-    ]))
-    transformerNameList.append('superpixels_' + str(pReplace).replace('.','p') + '__')
-# Add hue based transforms. (Color sensitivity testing)
-for hue in [25, 50]:
-    transformerList.append(iaa.Sequential([
-        iaa.ChangeColorspace(from_colorspace="RGB", to_colorspace="HSV"),
-        iaa.WithChannels(0, iaa.Add((hue))),
-        iaa.ChangeColorspace(from_colorspace="HSV", to_colorspace="RGB")
-    ]))
-    transformerNameList.append('colorspace_' + str(hue).replace('.','p') + '__')
-# Add average type blurs. (Shaky camera or moving object type blurs)
-for width, height in [(5, 11)]:
-    transformerList.append(iaa.Sequential([
-        iaa.AverageBlur(k=((width), (height)))
-    ]))
-    transformerNameList.append('averageblur_' + str(width) + '_' + str(height) + '__')
-# Add median type blurs. (Region type blurs)
-for size in [1]:
-    transformerList.append(iaa.Sequential([
-        iaa.MedianBlur(k=(3, 11))
-    ]))
-    transformerNameList.append('medianblur_' + str(size) + '__')
-# Add sharpen type affects. (Lighting type issues)
-for num in range(3):
-    transformerList.append(iaa.Sequential([
-        iaa.Sharpen(alpha=(0.0, 1.0), lightness=(0.75, 2.0))
-    ]))
-    transformerNameList.append('sharpen_' + str(num) + '__')
-# Add intensity type affects. (Lighting type issues)
-for num in [-80, 80]:
-    transformerList.append(iaa.Sequential([
-        iaa.Add((num))
-    ]))
-    transformerNameList.append('addintensity_' + str(num) + '__')
-# Add random intensity type affects. (Intensity noise type issues)
-for num in [1]:
-    transformerList.append(iaa.Sequential([
-        iaa.AddElementwise((-80, 80))
-    ]))
-    transformerNameList.append('elementrandomintensity_' + str(num) + '__')
-# Add lighting intensity type affects. (Lighting type issues)
-for num in [.25, 2]:
-    transformerList.append(iaa.Sequential([
-        iaa.Multiply((num))
-    ]))
-    transformerNameList.append('multiplyintensity_' + str(num).replace('.','p') + '__')
-# Add contrast type affects. (Color type issues)
-for num in range(3):
-    transformerList.append(iaa.Sequential([
-        iaa.ContrastNormalization((0.5, 1.5), per_channel=0.5)
-    ]))
-    transformerNameList.append('contrastnormalization_' + str(num).replace('.','p') + '__')
-# Add elastic type affects. (Color, moving pixels, locality type issues) Almost like looking through a rainy windshield.
-for num in [1]:
-    transformerList.append(iaa.Sequential([
-        iaa.ElasticTransformation(alpha=(5.0), sigma=0.25)
-    ]))
-    transformerNameList.append('elastic_' + str(num).replace('.','p') + '__')
-# invert every pixel, i.e. do a 255-v per channel
-for num in [1]:
-    transformerList.append(iaa.Sequential([
-        iaa.Invert(1.0)
-    ]))
-    transformerNameList.append('invert__')
+# for mSigma in [1, 10, 20]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.GaussianBlur(sigma=(mSigma))  # blur images with a sigma of 0 to 3.0
+#     ]))
+#     transformerNameList.append('gaussianblur_' + str(mSigma).replace('.','p') + '__')
+# # Add super pixel transforms. (Region color and shape based sensitivity)
+# for pReplace in [0.1, 0.5, 0.85]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.Superpixels(p_replace=pReplace, n_segments=128)
+#     ]))
+#     transformerNameList.append('superpixels_' + str(pReplace).replace('.','p') + '__')
+# # Add hue based transforms. (Color sensitivity testing)
+# for hue in [25, 50]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.ChangeColorspace(from_colorspace="RGB", to_colorspace="HSV"),
+#         iaa.WithChannels(0, iaa.Add((hue))),
+#         iaa.ChangeColorspace(from_colorspace="HSV", to_colorspace="RGB")
+#     ]))
+#     transformerNameList.append('colorspace_' + str(hue).replace('.','p') + '__')
+# # Add average type blurs. (Shaky camera or moving object type blurs)
+# for width, height in [(5, 11)]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.AverageBlur(k=((width), (height)))
+#     ]))
+#     transformerNameList.append('averageblur_' + str(width) + '_' + str(height) + '__')
+# # Add median type blurs. (Region type blurs)
+# for size in [1]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.MedianBlur(k=(3, 11))
+#     ]))
+#     transformerNameList.append('medianblur_' + str(size) + '__')
+# # Add sharpen type affects. (Lighting type issues)
+# for num in range(3):
+#     transformerList.append(iaa.Sequential([
+#         iaa.Sharpen(alpha=(0.0, 1.0), lightness=(0.75, 2.0))
+#     ]))
+#     transformerNameList.append('sharpen_' + str(num) + '__')
+# # Add intensity type affects. (Lighting type issues)
+# for num in [-80, 80]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.Add((num))
+#     ]))
+#     transformerNameList.append('addintensity_' + str(num) + '__')
+# # Add random intensity type affects. (Intensity noise type issues)
+# for num in [1]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.AddElementwise((-80, 80))
+#     ]))
+#     transformerNameList.append('elementrandomintensity_' + str(num) + '__')
+# # Add lighting intensity type affects. (Lighting type issues)
+# for num in [.25, 2]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.Multiply((num))
+#     ]))
+#     transformerNameList.append('multiplyintensity_' + str(num).replace('.','p') + '__')
+# # Add contrast type affects. (Color type issues)
+# for num in range(3):
+#     transformerList.append(iaa.Sequential([
+#         iaa.ContrastNormalization((0.5, 1.5), per_channel=0.5)
+#     ]))
+#     transformerNameList.append('contrastnormalization_' + str(num).replace('.','p') + '__')
+# # Add elastic type affects. (Color, moving pixels, locality type issues) Almost like looking through a rainy windshield.
+# for num in [1]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.ElasticTransformation(alpha=(5.0), sigma=0.25)
+#     ]))
+#     transformerNameList.append('elastic_' + str(num).replace('.','p') + '__')
+# # invert every pixel, i.e. do a 255-v per channel
+# for num in [1]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.Invert(1.0)
+#     ]))
+#     transformerNameList.append('invert__')
 
     
 ##Space transforms
