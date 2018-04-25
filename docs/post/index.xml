@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on CS766 Project</title>
+    <link>https://dcompgriff.github.io/ML_OD_Benchmarking/post/</link>
+    <description>Recent content in Posts on CS766 Project</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Apr 2018 13:50:46 +0200</lastBuildDate>
+    
+	<atom:link href="https://dcompgriff.github.io/ML_OD_Benchmarking/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Deep object detection network benchmarking and sensitivity analysis.</title>
+      <link>https://dcompgriff.github.io/ML_OD_Benchmarking/post/deep-object-detection-benchmarking/</link>
+      <pubDate>Mon, 23 Apr 2018 13:50:46 +0200</pubDate>
+      
+      <guid>https://dcompgriff.github.io/ML_OD_Benchmarking/post/deep-object-detection-benchmarking/</guid>
+      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
+ Name Age   Dan 21   Jane 45   We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+    </item>
+    
+    <item>
+      <title>Creating a new theme</title>
+      <link>https://dcompgriff.github.io/ML_OD_Benchmarking/post/creating-a-new-theme/</link>
+      <pubDate>Wed, 24 Jun 2015 13:50:46 +0200</pubDate>
+      
+      <guid>https://dcompgriff.github.io/ML_OD_Benchmarking/post/creating-a-new-theme/</guid>
+      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
+We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -204,15 +204,19 @@ def applyAllTransforms(im_name, display=False):
 
     # Apply the transforms in the transformer list.
     for i, seq in enumerate(transformerList):
-        IaugName = transformerNameList[i] + baseImgName
-        Iaug = seq.augment_image(I)
-        io.imsave(GLOBAL_ARGS.output_dir + IaugName, Iaug)
+        try:
+            IaugName = transformerNameList[i] + baseImgName
+            Iaug = seq.augment_image(I)
+            io.imsave(GLOBAL_ARGS.output_dir + IaugName, Iaug)
 
-        if display:
-            plt.axis('off')
-            plt.imshow(Iaug)
-            plt.show()
+            if display:
+                plt.axis('off')
+                plt.imshow(Iaug)
+                plt.show()
+        except:
+            print('Error while transforming %s'%IaugName)
 
+            
 def main(args):
     # Get the image paths to the specified input folder.
     if os.path.isdir(args.im_or_folder):

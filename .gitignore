@@ -1,6 +1,7 @@
 data/outputs/*.log
 data/outputs/home_sys_outputs/
 .idea/*
+.idea/
 data/inputs/annotations/*
 data/inputs/val2017/*
 data/inputs/*.jpg
