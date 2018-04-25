@@ -16,10 +16,12 @@ theme = "hugo-minimalist-theme"
 
 [params]
     site_author = "Dan Griffin"
+    site_author2 = "Yudhister Satija"
     site_description = "CS766 Deep object detection benchmarking and sensitivity analysis."
     location = "Earth"
     # Link custom assets relative to /static
-    avatar = "img/Dan.png"
+    avatar = "img/dgriffin.jpg"
+    avatar2 = "img/YudhisterSatija.jpg"
     header_background = "img/desk.jpg"
     header_title = "CS 766 Project: Deep Object Detection Network Analysis."
     copyright = "Powered by [Hugo](http://gohugo.io)."
@@ -40,4 +42,14 @@ theme = "hugo-minimalist-theme"
     dribbble  = ""
     instagram = ""
     github    = "dcompgriff"
+    gplus     = ""
+
+[social2]
+    twitter   = ""
+    facebook  = ""
+    linkedin  = ""
+    behance   = ""
+    dribbble  = ""
+    instagram = ""
+    github    = "Yudhister"
     gplus     = ""
