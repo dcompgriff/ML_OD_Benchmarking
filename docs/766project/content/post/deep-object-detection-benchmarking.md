@@ -11,27 +11,31 @@ Deep object detection methods represent the pinnacle of cutting edge object dete
 
 ## Background
 
-Deep object detection can be framed in many similar ways. The simplest framing of object 
-detection refers to object detection using data.
+Dealing with object in images can loosely be broken down into 4 main categories (at the time of making this post anyways).
+The first method of dealing with objects in images is "Object Classification". In this task, an entire image is taken to 
+represent a single kind of object, and the goal is to classify the image. The next, more advanced task is Object Classification 
+with "Localization". In this task, we try to determine two things. The first is where the object is within an image, and the second 
+is to classigy what object is in that location. The next task is "Object Detection". This builds on Object Classification 
+with Localization by finding multiple regions likely to have an object, then classifying each region as an individual object. The 
+final task is "Instance Segmentation" (Image Segmentation), where the meaningful objects within an image are organized into 
+singular segments. For our project, we focus on the "Object Detection" task. A visual representation of the different kinds of 
+tasks is provided below.
+
+![Object Detection Kinds](/img/obj_det_kinds.png "Object Detection Tasks")
+
+
 
 
 ## Project Proposal
 
 ##### Problem?
 
-How well do current cutting edge deep neural networks work in terms of accuracy, time
-to train, time to predict, kind of image, and sensitivity to noise? How statistically different are the
-most representative kinds of deep neural network object detection models in terms of
-performance? How do the deep network object detection models differ, how does this contribute
-to performance, and are there any rules, guidelines, or insights that can be used in general for
-developing deep neural network based object detection models? These are just a few important
-questions that require substantial analysis and benchmarking of existing deep neural network
-based object detection models.
+1. How sensitive are cutting edge deep object detection networks to natural noise/errors/variation in images?
 
-We seek to compare and bench-mark several representative techniques, each of which
-may not be super-optimized. In doing so, we seek to gain some intuition about the relative
-limitations / advantages of different methods in terms of performance, robustness, and in
-dealing with different kinds of images.
+2. What kind of process and metrics should be used to quantify this sensitivity?
+
+3. Can our analysis be used to provide a context of which networks to use in different contexts?
+
 
 ##### Importance?
 
@@ -56,16 +60,13 @@ pre-trained backbone networks we are looking to use include ResNeXt{50,101,152} 
 ResNet{50,101,152} , Feature Pyramid Networks , and VGG16 . The datasets we aim to use
 include the COCO dataset, PASCAL VOC dataset, and the Kitti object detection dataset. These
 network architecture designs, and network backbones represent some of the most common
-cutting edge object detection deep neural networks that exist today. We hope to also be able to
-implement and test the YOLO (You only look once) network structure if we have time, as it is a
-network proposed to focus more on speedy predictions for near-real-time applications.
+cutting edge object detection deep neural networks that exist today. 
 
 In terms of actual analysis, not much work has been performed into analysis of deep
 neural network models other than basic average performance metrics of individual models. Most
 work focuses more on proposing a new architecture for a deep network object detection model,
 rather than comparing its significant difference with existing methods, major fundamental
-drawbacks, and other ways in which the network can be fooled or broken. In terms of
-robustness and sensitivity to noise,
+drawbacks, and other ways in which the network can be fooled or broken. 
 
 ##### Existing Systems or New Approach?
 
@@ -84,7 +85,7 @@ Our project proposal centers around benchmarking and analyzing different deep ob
 detection networks, so the evaluation phase is really the meat of our project (aside from getting
 everything up and running). The details of what we plan on benchmarking, what platforms we
 plan to use, what data sets we plan to use, and what metrics we plan to calculate are given in
-the “Plan for the rest of the semester” section below.
+the “Approach” section below.
 
 ## Approach
 
@@ -101,12 +102,13 @@ sensitivities based on class, transform kind, and model.
 7. Create guidelines for developing and using deep object detection networks, and propose new data.
 
 
-
 ## System
 
 ##### Systems Overview
 S
 
+##### Languages and Frameworks Utilized
+S
 
 
 ## Results
@@ -147,8 +149,9 @@ Without access to such a powerful system, this project would not have been possi
 
 ##### Challenges We Faced
 
-+   Refactoring our project and proposal.
-    +   So we had to rapidly change our direction when we realized the tedious
+Refactoring our project and proposal.
+
++ So we had to rapidly change our direction when we realized the tedious
 complexity of our original project proposal, and search for a new potential project.
 We had to review lots of object detection papers and methods to come up with a
 new project to work on. Once we had an idea that we wanted to try to perform a
@@ -156,8 +159,9 @@ set of benchmarking, we had to find candidate models, platforms, frameworks,
 datasets, and metrics that we thought we could achieveably use for our project.
 Some of the challenges of these are found in the next subsections.
 
-+   Running on Condor GPUs and getting access to resources.
-    +   Most of today’s existing deep neural network, object detection based models
+Running on Condor GPUs and getting access to resources.
+
++ Most of today’s existing deep neural network, object detection based models
 require GPUs (A major drawback which I believe will eventually be remedied with
 FPGAs due to their high speed, low power nature which makes them a defacto
 choice for most industry scale, long term use). So, we talked to the University of
@@ -174,8 +178,9 @@ instances (each with 6-8 GPUs each) that don’t have Docker (But we can’t use
 these without docker, as the nature of the code we are trying to run on the
 machines requires installation and system configuration permissions).
 
-+   Running on AWS, and the cost associated with it.
-    +   Since we couldn’t run on the condor instances, we decided to turn to Amazon
+Running on AWS, and the cost associated with it.
+
++ Since we couldn’t run on the condor instances, we decided to turn to Amazon
 Web Services (AWS) to try to provision instances. After a few days of working
 with AWS EC2 instances, we finally developed a process for provisioning AWS
 GPU instance resources for running our nvidia-docker based code, and running
@@ -185,8 +190,9 @@ with this is that AWS GPU instances are $1/HR to provision and use which is
 quite expensive for compute resources (And why we are trying to avoid training
 models that can each take anywhere from hours to days to train).
 
-+   Dataset non-uniformity.
-    +   While there exist some different datasets for benchmarking object detection,
+Dataset non-uniformity.
+
++ While there exist some different datasets for benchmarking object detection,
 most data sets have different formats. We have decided to try to standardize to
 the COCO dataset API, and to try to convert some of the other data sets we
 would like to use to the COCO annotation specifications. This means that we will
@@ -196,7 +202,9 @@ data set.
 
 ### Initial Proposal and Midterm Reports.
 
-
++ [Initial Project Proposal](/publications/766_CV_Project_Proposal.pdf)
++ [Midterm Report](/publications/766_CV_Midterm_Report.pdf)
++ [Project Presentation](/publications/766_Final_Project_Presentation.pptx)
 
 
 

@@ -61,30 +61,33 @@
 
 <h2 id="introduction">Introduction</h2>
 
-<p>Deep object detectio methods represent the pinnacle of cutting edge object detection methods.</p>
+<p>Deep object detection methods represent the pinnacle of cutting edge object detection methods.</p>
 
 <h2 id="background">Background</h2>
 
-<p>Deep object detection can be framed in many similar ways. The simplest framing of object
-detection refers to object detection using data.</p>
+<p>Dealing with object in images can loosely be broken down into 4 main categories (at the time of making this post anyways).
+The first method of dealing with objects in images is &ldquo;Object Classification&rdquo;. In this task, an entire image is taken to
+represent a single kind of object, and the goal is to classify the image. The next, more advanced task is Object Classification
+with &ldquo;Localization&rdquo;. In this task, we try to determine two things. The first is where the object is within an image, and the second
+is to classigy what object is in that location. The next task is &ldquo;Object Detection&rdquo;. This builds on Object Classification
+with Localization by finding multiple regions likely to have an object, then classifying each region as an individual object. The
+final task is &ldquo;Instance Segmentation&rdquo; (Image Segmentation), where the meaningful objects within an image are organized into
+singular segments. For our project, we focus on the &ldquo;Object Detection&rdquo; task. A visual representation of the different kinds of
+tasks is provided below.</p>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/obj_det_kinds.png" alt="Object Detection Kinds" title="Object Detection Tasks" /></p>
 
 <h2 id="project-proposal">Project Proposal</h2>
 
 <h5 id="problem">Problem?</h5>
 
-<p>How well do current cutting edge deep neural networks work in terms of accuracy, time
-to train, time to predict, kind of image, and sensitivity to noise? How statistically different are the
-most representative kinds of deep neural network object detection models in terms of
-performance? How do the deep network object detection models differ, how does this contribute
-to performance, and are there any rules, guidelines, or insights that can be used in general for
-developing deep neural network based object detection models? These are just a few important
-questions that require substantial analysis and benchmarking of existing deep neural network
-based object detection models.</p>
+<ol>
+<li><p>How sensitive are cutting edge deep object detection networks to natural noise/errors/variation in images?</p></li>
 
-<p>We seek to compare and bench-mark several representative techniques, each of which
-may not be super-optimized. In doing so, we seek to gain some intuition about the relative
-limitations / advantages of different methods in terms of performance, robustness, and in
-dealing with different kinds of images.</p>
+<li><p>What kind of process and metrics should be used to quantify this sensitivity?</p></li>
+
+<li><p>Can our analysis be used to provide a context of which networks to use in different contexts?</p></li>
+</ol>
 
 <h5 id="importance">Importance?</h5>
 
@@ -108,16 +111,13 @@ pre-trained backbone networks we are looking to use include ResNeXt{50,101,152} 
 ResNet{50,101,152} , Feature Pyramid Networks , and VGG16 . The datasets we aim to use
 include the COCO dataset, PASCAL VOC dataset, and the Kitti object detection dataset. These
 network architecture designs, and network backbones represent some of the most common
-cutting edge object detection deep neural networks that exist today. We hope to also be able to
-implement and test the YOLO (You only look once) network structure if we have time, as it is a
-network proposed to focus more on speedy predictions for near-real-time applications.</p>
+cutting edge object detection deep neural networks that exist today.</p>
 
 <p>In terms of actual analysis, not much work has been performed into analysis of deep
 neural network models other than basic average performance metrics of individual models. Most
 work focuses more on proposing a new architecture for a deep network object detection model,
 rather than comparing its significant difference with existing methods, major fundamental
-drawbacks, and other ways in which the network can be fooled or broken. In terms of
-robustness and sensitivity to noise,</p>
+drawbacks, and other ways in which the network can be fooled or broken.</p>
 
 <h5 id="existing-systems-or-new-approach">Existing Systems or New Approach?</h5>
 
@@ -136,7 +136,7 @@ and what shortcoming exist with existing methods.</p>
 detection networks, so the evaluation phase is really the meat of our project (aside from getting
 everything up and running). The details of what we plan on benchmarking, what platforms we
 plan to use, what data sets we plan to use, and what metrics we plan to calculate are given in
-the “Plan for the rest of the semester” section below.</p>
+the “Approach” section below.</p>
 
 <h2 id="approach">Approach</h2>
 
@@ -156,6 +156,10 @@ sensitivities based on class, transform kind, and model.</li>
 <h2 id="system">System</h2>
 
 <h5 id="systems-overview">Systems Overview</h5>
+
+<p>S</p>
+
+<h5 id="languages-and-frameworks-utilized">Languages and Frameworks Utilized</h5>
 
 <p>S</p>
 
@@ -185,12 +189,16 @@ sensitivities based on class, transform kind, and model.</li>
 <p>Modern machine learning performance metrics are generally centered on precision, recall, AUC for ROC curves,
 Precision/Recall Curves, and</p>
 
+<h2 id="special-thanks">Special Thanks</h2>
+
+<p>Special thanks to Matt Nichols <a href="//github.com/mattuyw" class="icon-github" target="_blank" title="Github"></a> for providing us access to his 8 GPU bitcoin mining machine!
+Without access to such a powerful system, this project would not have been possible.</p>
+
 <h2 id="appendix">Appendix</h2>
 
 <h5 id="challenges-we-faced">Challenges We Faced</h5>
 
-<ul>
-<li><p>Refactoring our project and proposal.</p>
+<p>Refactoring our project and proposal.</p>
 
 <ul>
 <li>So we had to rapidly change our direction when we realized the tedious
@@ -200,9 +208,9 @@ new project to work on. Once we had an idea that we wanted to try to perform a
 set of benchmarking, we had to find candidate models, platforms, frameworks,
 datasets, and metrics that we thought we could achieveably use for our project.
 Some of the challenges of these are found in the next subsections.</li>
-</ul></li>
+</ul>
 
-<li><p>Running on Condor GPUs and getting access to resources.</p>
+<p>Running on Condor GPUs and getting access to resources.</p>
 
 <ul>
 <li>Most of today’s existing deep neural network, object detection based models
@@ -221,9 +229,9 @@ staff, and they are working on getting docker running on the other 2 older
 instances (each with 6-8 GPUs each) that don’t have Docker (But we can’t use
 these without docker, as the nature of the code we are trying to run on the
 machines requires installation and system configuration permissions).</li>
-</ul></li>
+</ul>
 
-<li><p>Running on AWS, and the cost associated with it.</p>
+<p>Running on AWS, and the cost associated with it.</p>
 
 <ul>
 <li>Since we couldn’t run on the condor instances, we decided to turn to Amazon
@@ -235,9 +243,9 @@ for their operators, and up to 15GB of dedicated system memory). The downside
 with this is that AWS GPU instances are $1/HR to provision and use which is
 quite expensive for compute resources (And why we are trying to avoid training
 models that can each take anywhere from hours to days to train).</li>
-</ul></li>
+</ul>
 
-<li><p>Dataset non-uniformity.</p>
+<p>Dataset non-uniformity.</p>
 
 <ul>
 <li>While there exist some different datasets for benchmarking object detection,
@@ -246,10 +254,15 @@ the COCO dataset API, and to try to convert some of the other data sets we
 would like to use to the COCO annotation specifications. This means that we will
 likely have to write scripts for generating COCO annotated images from each
 data set.</li>
-</ul></li>
 </ul>
 
 <h3 id="initial-proposal-and-midterm-reports">Initial Proposal and Midterm Reports.</h3>
+
+<ul>
+<li><a href="https://dcompgriff.github.io/ML_OD_Benchmarking/publications/766_CV_Project_Proposal.pdf">Initial Project Proposal</a></li>
+<li><a href="https://dcompgriff.github.io/ML_OD_Benchmarking/publications/766_CV_Midterm_Report.pdf">Midterm Report</a></li>
+<li><a href="https://dcompgriff.github.io/ML_OD_Benchmarking/publications/766_Final_Project_Presentation.pptx">Project Presentation</a></li>
+</ul>
 
             <ul class="share-buttons">
     <li>Share this article:</li>
@@ -274,7 +287,6 @@ data set.</li>
   <img class="profile-image" src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/dgriffin.jpg" alt="Dan Griffin" width="200" height="200"/>
   <p class="name">by 
   <strong>Dan Griffin</strong></p>
-  <p class="address">Earth</p>
   <p class="link"></p>
   <ul class="social">
     
@@ -304,7 +316,6 @@ data set.</li>
     <img class="profile-image" src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/YudhisterSatija.jpg" alt="Yudhister Satija" width="200" height="200"/>
     <p class="name">by
     <strong>Yudhister Satija</strong></p>
-    <p class="address">Earth</p>
     <p class="link"></p>
     <br><br>
 </aside>
