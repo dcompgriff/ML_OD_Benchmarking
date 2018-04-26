@@ -283,14 +283,14 @@ def findMatchingBBoxes(detectedJsons, cocoAnnotations, outDir, algo):
                 with open(path,'w') as fd:
                     fd.write(json.dumps(dt[dt['transform']==tr].to_dict('index')))
     
-for algo in models[2:3]:
+for algo in models:
     print("Running for model: "+algo)
     origJsons = glob.iglob(resF+algo + '/*.json')
     print("starting on original results")
-    #findMatchingBBoxes(origJsons, cocoGt,newResF,algo)
+    findMatchingBBoxes(origJsons, cocoGt,newResF,algo)
     origJsons = glob.iglob(tranF+algo + '/*.json')
     print("starting on value transformed results")
-    #findMatchingBBoxes(origJsons, cocoGt,newTranF,algo)
+    findMatchingBBoxes(origJsons, cocoGt,newTranF,algo)
     origJsons = glob.iglob(spaceF+algo + '/*.json')
     print("starting on space transformed results")
     findMatchingBBoxes(origJsons, cocoGt,newSpaceF,algo)
