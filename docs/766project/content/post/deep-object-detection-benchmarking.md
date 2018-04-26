@@ -6,7 +6,7 @@ title = "Deep object detection network benchmarking and sensitivity analysis."
 
 ## Introduction
 
-Deep object detectio methods represent the pinnacle of cutting edge object detection methods.
+Deep object detection methods represent the pinnacle of cutting edge object detection methods.
 
 
 ## Background
@@ -136,6 +136,11 @@ S
 
 Modern machine learning performance metrics are generally centered on precision, recall, AUC for ROC curves, 
 Precision/Recall Curves, and 
+
+## Special Thanks
+
+Special thanks to Matt Nichols <a href="//github.com/mattuyw" class="icon-github" target="_blank" title="Github"></a> for providing us access to his 8 GPU bitcoin mining machine! 
+Without access to such a powerful system, this project would not have been possible. 
 
 
 ## Appendix
