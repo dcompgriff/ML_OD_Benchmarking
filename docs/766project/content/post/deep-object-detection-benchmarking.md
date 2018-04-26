@@ -11,6 +11,8 @@ Deep object detection methods represent the pinnacle of cutting edge object dete
 
 ## Background
 
+##### Object Detection 
+
 Dealing with object in images can loosely be broken down into 4 main categories (at the time of making this post anyways).
 The first method of dealing with objects in images is "Object Classification". In this task, an entire image is taken to 
 represent a single kind of object, and the goal is to classify the image. The next, more advanced task is Object Classification 
@@ -21,14 +23,52 @@ final task is "Instance Segmentation" (Image Segmentation), where the meaningful
 singular segments. For our project, we focus on the "Object Detection" task. A visual representation of the different kinds of 
 tasks is provided below.
 
+**Object Detection Tasks**
 ![Object Detection Kinds](/img/obj_det_kinds.png "Object Detection Tasks")
 
+As stated above, the Object Detection task is comprised of two parts. The first part deals with generating what are called 
+"Object Proposals". Object Proposals are regions of an image that are considered likely to contain an object. The actual 
+object proposal task can be performed by many algorithms. These object proposals are then passed to an Object 
+Classification algorithms that classifies each region as an object (typically with some sort of confidence). Object Proposal 
+and Object Classification used to be considered as two seprate tasks, requiring a dedicated algorithm for each. However, 
+more recent Object Detection methods incorporate both the Object Proposal and Object Detection tasks into a single 
+deep neural network architecture, thus creating a single network that can perform the full end to end Object Detection.
 
+**Object Proposals and Classification**
+![Object Proposals and Classification](/img/obj_proposals.png "Object Proposals and Classification")
+
+##### Deep Object Detection Network Sensitivity
+
+There has been increasing interest in deep neural network based Object Detection method's sensitivity to errors or 
+variations in images. Currently, most of the focus is in the context of "Adverserial Attacks", in which an image is specifically 
+designed to trick a deep neural network into misclassifying the image with high confidence. In this scenario, some deep 
+neural network repeatedly probes an Object Detection network with an image, iteratively modifying it to a small degree 
+until the deep neural network misclassifies it. In some cases, the modifications that need to be made to an image 
+to trick a deep neural network are so small that they are not visible to the human eye. This issue is visually depicted 
+below.
+
+**Adverserial Object Detection**
+![Adverserial Object Detection](/img/obj_detection_adverserial.png "Adverserial Object Detection")
+
+Another kind of deep neural network sensitivity is a deep neural network's ability to correctly detect and classify 
+objects in the presence of noise, or what we call "natural" image variation. We make this particular distinction 
+from the adverserial case because these kinds of image variations are not mathematically constructed for 
+the purpose of tricking a deep neural network. These are images that may have saturation, contrast, lighting, 
+noise, blur, and other kinds of issues that may be naturally occuring. From our searches, we have not  been 
+able to find anyone that has previously proposed this kind of distinction for image variation. In our project, we 
+focus on these types of "natural" image variations, and analyse the sensitivity of deep neural networks to this 
+kind of image variation. A visual representation of some of examples of natural image variations are given 
+below.
+
+**Natural Image Variation Object Detection**
+![Natural Image Variation Object Detection](/img/obj_detection_natural_variation.png "Natural Image Variation Object Detection")
 
 
 ## Project Proposal
 
 ##### Problem?
+
+For this project, we focused on 3 main questions related to deep neural network based object detection methods.
 
 1. How sensitive are cutting edge deep object detection networks to natural noise/errors/variation in images?
 
@@ -39,17 +79,13 @@ tasks is provided below.
 
 ##### Importance?
 
-While some simple benchmarking has been previously performed, there exists a need to
-thoroughly benchmark and explore today’s existing cutting edge object detection models to
-understand how they differ, potential shortcomings, and how new models may be designed that
-improve upon issues that exist with today’s models. While it is known that deep neural networks
-produce some of the highest detection performance, it is not yet fully understood if there are
-good rules or guidelines for designing modern detection networks, and the full capabilities or
-drawbacks of existing cutting edge detection networks are only understood at a cursory level.
-Deep analysis of today’s cutting edge object detection neural networks is necessary to
-understand where improvements should be made for future research, which methods should be
-applied for different scenarios, when current methods perform within their suggested
-performance bounds, and the potentially unstated drawbacks of current methods.
+1. **Safety Applications**: A practical understanding or methodology for determining how Deepnets fail is crucial if we expect to use deep nets in safety concerned applications, such as autonomous driving.
+
+2. **Context Specific Applications**: Field focus is on “new” networks.
+Little knowledge of practical use “in the wild”.
+
+3. **Lack of Rich Performance Metrics**: Standard ML metrics don’t map very well to object detection.
+There aren’t rich metrics that quantify things like “color sensitivity”
 
 
 ##### State of the art?
@@ -66,14 +102,29 @@ In terms of actual analysis, not much work has been performed into analysis of d
 neural network models other than basic average performance metrics of individual models. Most
 work focuses more on proposing a new architecture for a deep network object detection model,
 rather than comparing its significant difference with existing methods, major fundamental
-drawbacks, and other ways in which the network can be fooled or broken. 
+drawbacks, and other ways in which the network can be fooled or broken. We provide a general 
+summary of some of the state of the art networks, backbones, data sets, and kinds of analysis.
+
++ Networks:
+  + Mask R-CNN, RetinaNet, Faster R-CNN , RPN , Fast R-CNN , R-FCN, YOLO 
++ Backbones: 
+  + ResNeXt{50,101,152} , ResNet{50,101,152} , Feature Pyramid Networks , and VGG16
++ Datasets:
+  + COCO (Multi-object Detection Dataset)
+  + PASCAL VOC (Multi-object Detection Dataset))
+  + Kitti (Autonomous Vehicle Object Detection Dataset)
++ Analysis:
+  + Simple aggregated performance metrics
+  + Adversarial based analysis
+
+
 
 ##### Existing Systems or New Approach?
 
 We plan on benchmarking existing neural network designs and implementations that are
 representative of current deep neural network object detection based methods, with one
 particular goal being a proposal and outline of future research work that should be developed to
-address some of the issues we find. This might fall under the category of a “New approach”.
+address some of the issues we find. This might fall under the category of a “new approach”.
 However, we also plan on performing deeper analysis of existing methods than has been
 previously performed to provide for a better overall understanding of how well modern methods
 compare, how similar and different the methods are, which approaches seem to work the best,
@@ -101,11 +152,55 @@ the “Approach” section below.
 sensitivities based on class, transform kind, and model.
 7. Create guidelines for developing and using deep object detection networks, and propose new data.
 
+##### Networks, Images, Datasets
+
+Below, we outline the networks we tested, the analysis we performed, and the systems we used.
+
++ 10 Networks (Requires 11GB Graphics Cards): 
+  + \<Net Arch\>_\<Net Backbone\>-\<Proposals\>_2x
+  + e2e_faster_rcnn_R-101-FPN_2x
+  + e2e_faster_rcnn_R-50-C4_2x
+  + e2e_faster_rcnn_R-50-FPN_2x
+  + e2e_faster_rcnn_X-101-64x4d-FPN_2x
+  + e2e_mask_rcnn_R-101-FPN_2x
+  + e2e_mask_rcnn_R-50-C4_2x
+  + e2e_mask_rcnn_R-50-FPN_2x
+  + retinanet_R-101-FPN_2x
+  + retinanet_R-50-FPN_2x
+  + retinanet_X-101-64x4d-FPN_2x
+
++ Images:
+  + COCO image validation data set. 
+  + 5000 base images (600x800 3 channel images)
+  + 50 Transforms generating 250,000 images total
+  + 5000*50*10*(300 proposals/net) = 750 Million object candidates
+
++ Systems:
+  + 8 GTX 1080ti GPU system with 11GB per Card, 8 GB Ram
+  + i7 CPU, 24GB Ram
+  + University of Wisconsin Condor GPU Instances
+
+##### Image Transforms
+
+We have 50 image transforms that we applied to the COCO validation image set. There 
+are roughly two categories of image transforms that we applied. The first is value based 
+transforms. Most of these transforms deal with changing images in ways related to the 
+value of pixels in an image. The second is spatial based transforms, in which we transform 
+images in ways that may alter the phisicaly size, shape, or arraingment of pixels within an 
+image. We provide some visual examples of each kind of image transform below.
+
+
+**Value Based Transforms**
+![Value Based Transforms](/img/value_transforms.png "Value Based Transforms")
+
+**Spatially Based Transforms**
+![Spatially Based Transforms](/img/spatial_transforms.png "Spatially Based Transforms")
 
 ## System
 
 ##### Systems Overview
-S
+
+![Pipeline](/img/pipeline.png "Pipeline")
 
 ##### Languages and Frameworks Utilized
 S
@@ -130,6 +225,11 @@ S
 
 
 ## Discussion
+
+##### Short Summary
+
+![Short Summary](/img/short_summary_meme.png)
+
 
 
 ## Future Work
