@@ -1,3 +1,17 @@
+averageMetrics.py
+    finds average metrics as requested in google doc.
+    3 basic metric types:
+        'basic':
+            prints (Pr, RC, Accuracy and TP,FP,FN numbers) for specified model, transform and class
+        'diff':
+            prints difference w.r.t transform='None' for (Pr, RC, Accuracy and TP,FP,FN numbers) for specified model, transform and class
+        'matrix':
+            prints to file a confusion matrix for specified model and transform.
+    I have mentioned in --help how to use script.
+    Specifically, you can give a single transform name or 'all' to run on all transforms together
+    Class value is necessary for 'basic' or 'diff' metric
+    Class value can be the class's id or name or name of supercategory if wish to club thos together
+
 prepareMatches.py:
 
 Written in python 3 with corresponding dependencies of coco API and imgaug
