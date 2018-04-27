@@ -20,6 +20,7 @@ data/outputs/transformed_spatial_output/*
 data/outputs/transformed_outputs_matches/*
 data/outputs/transformed_spatial_output_matches/*
 data/outputs/5000_original_results_matches/*
+data/outputs/metrics/*
 >>>>>>> 918ef5a7f92d3880bdc906c3b98725e3e3336ff4
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
