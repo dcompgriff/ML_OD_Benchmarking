@@ -17,19 +17,8 @@
       <pubDate>Mon, 23 Apr 2018 13:50:46 +0200</pubDate>
       
       <guid>https://dcompgriff.github.io/ML_OD_Benchmarking/post/deep-object-detection-benchmarking/</guid>
-      <description>Introduction Deep object detectio methods represent the pinnacle of cutting edge object detection methods.
-Background Deep object detection can be framed in many similar ways. The simplest framing of object detection refers to object detection using data.
-Project Proposal Problem? How well do current cutting edge deep neural networks work in terms of accuracy, time to train, time to predict, kind of image, and sensitivity to noise? How statistically different are the most representative kinds of deep neural network object detection models in terms of performance?</description>
-    </item>
-    
-    <item>
-      <title>Creating a new theme</title>
-      <link>https://dcompgriff.github.io/ML_OD_Benchmarking/post/creating-a-new-theme/</link>
-      <pubDate>Wed, 24 Jun 2015 13:50:46 +0200</pubDate>
-      
-      <guid>https://dcompgriff.github.io/ML_OD_Benchmarking/post/creating-a-new-theme/</guid>
-      <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.
-We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+      <description>Introduction Deep object detection methods represent the pinnacle of cutting edge object detection methods.
+Background Object Detection Dealing with object in images can loosely be broken down into 4 main categories (at the time of making this post anyways). The first method of dealing with objects in images is &amp;ldquo;Object Classification&amp;rdquo;. In this task, an entire image is taken to represent a single kind of object, and the goal is to classify the image.</description>
     </item>
     
   </channel>

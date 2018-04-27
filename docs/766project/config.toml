@@ -14,6 +14,10 @@ theme = "hugo-minimalist-theme"
 # with the hugo server command
 #themesDir = "../.."
 
+# Set to true so images in markdown are prepended with base url.
+canonifyurls = true
+
+
 [params]
     site_author = "Dan Griffin"
     site_author2 = "Yudhister Satija"
