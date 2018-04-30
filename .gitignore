@@ -22,7 +22,7 @@ data/outputs/transformed_spatial_output_matches/*
 data/outputs/5000_original_results_matches/*
 data/outputs/metrics/*
 data/outputs/metrics.zip
->>>>>>> 918ef5a7f92d3880bdc906c3b98725e3e3336ff4
+data/outputs/*_coco/*
 cocoapi/PythonAPI/build/*
 cocoapi/PythonAPI/build/common/*
 detectron-download-cache/*
