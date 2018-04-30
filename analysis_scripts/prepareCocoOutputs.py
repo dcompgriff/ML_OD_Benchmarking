@@ -71,22 +71,12 @@ modelNames = ['e2e_faster_rcnn_R-50-C4_2x',
 'retinanet_R-101-FPN_2x',
 'retinanet_X-101-64x4d-FPN_2x']
 
-#initialize
-dataF = '../data/'
-metricF = dataF+'outputs/metrics/'
-#get coco annotations
-anntF = dataF+'inputs/annotations/instances_val2017.json'
-coco=COCO(anntF)
-cats = coco.loadCats(coco.getCatIds())
-print()
-labels = [cat['id'] for cat in cats]
-
 # Build path to transformed image outputs.
 dataF = '../data/'
 outputs = dataF+'outputs/'
 tranF = outputs + 'transformed_outputs/'
 resF = outputs +'5000_original_results/'
-
+# Build path to outputs from this script.
 newTranF = outputs + 'transformed_outputs_coco/'
 newResF = outputs +'5000_original_results_coco/'
 
@@ -103,7 +93,7 @@ for basePath in [newTranF, newResF]:
             os.makedirs(directory)
 
 
-def generateOutputFiles(origJsons, allTransforms=True):
+def generateOutputFiles(origJsons, args, allTransforms=True):
     # Stores the unrolled json output object files.
     objectDict = {transform: [] for transform in transformNames}
 
@@ -132,7 +122,11 @@ def generateOutputFiles(origJsons, allTransforms=True):
             imgDetectionList = []
             for i in range(len(img['scores'])):
                 newObject = {"image_id": imgId, "category_id": img['classes'][i],"bbox": img['bboxes'][i],"score": img['scores'][i]}
-                imgDetectionList.append(newObject)
+
+                if float(newObject['score']) >= float(args.threshold):
+                    imgDetectionList.append(newObject)
+                else:
+                    continue
             # Put the unrolled image object list into the appropriate list in the object dictionary.
             objectDict[transform].extend(imgDetectionList)
 
@@ -156,12 +150,12 @@ def main(args):
             print("Running for model: " + algo)
             origJsons = glob.iglob(resF + algo + '/*.json')
             print("Starting on original results...")
-            generateOutputFiles(origJsons, allTransforms=False)
+            generateOutputFiles(origJsons, args, allTransforms=False)
         else:
             print("Running for model: " + algo)
             origJsons = glob.iglob(tranF + algo + '/*.json')
             print("Starting on original results...")
-            generateOutputFiles(origJsons)
+            generateOutputFiles(origJsons, args)
         endTime = time.time()
         print("Done! Took %s seconds." % (str(endTime - startTime)))
     finalEndTime = time.time()
@@ -181,6 +175,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="""After having metrics folder under data/outputs, use this script to generate a variety of metrics.\n
     Specify which model to use, which transform to use (or 'all') and which class to use (either id or class/sueprclass name) (or 'all')""")
     parser.add_argument('-t', metavar='Class', type=str, default='All', help="""Specify 'None' if outputs are for non-transformed images.""")
+    parser.add_argument('-threshold', metavar='Class', type=str, default='0.0',
+                        help="""Specify the threshold for the score of each object.""")
     args = parser.parse_args()
     main(args)
 

@@ -20,6 +20,7 @@ data/outputs/transformed_spatial_output/*
 data/outputs/transformed_outputs_matches/*
 data/outputs/transformed_spatial_output_matches/*
 data/outputs/5000_original_results_matches/*
+analysis_scripts/.ipynb_checkpoints/*
 data/outputs/metrics/*
 data/outputs/metrics.zip
 data/outputs/*_coco/*
