@@ -134,10 +134,23 @@ def main(args):
         #TODO: allow for more classes
         met = TpFpFn(dt,classes[0])#currently allowed only a single class
 
+        try:
+            precision = met['tp']/(met['tp']+met['fp'])
+        except:
+            precision = 0
+        try:
+            recall = met['tp'] / (met['tp'] + met['fn'])
+        except:
+            recall = 0
+        try:
+            accuracy = (met['tp']+met['tn'])/sum(met.values())
+        except:
+            accuracy = 0
+
         metrics = {
-            'precision':met['tp']/(met['tp']+met['fp']),
-            'recall':met['tp']/(met['tp']+met['fn']),
-            'accuracy':(met['tp']+met['tn'])/sum(met.values()),
+            'precision':precision,
+            'recall':recall,
+            'accuracy':accuracy,
             'TP':met['tp'],
             'FP':met['fp'],
             'FN':met['fn'],
