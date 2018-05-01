@@ -98,12 +98,12 @@ for num in [1]:
         iaa.ElasticTransformation(alpha=(5.0), sigma=0.25)
     ]))
     transformerNameList.append('elastic_' + str(num).replace('.','p') + '__')
-# invert every pixel, i.e. do a 255-v per channel
-for num in [1]:
-    transformerList.append(iaa.Sequential([
-        iaa.Invert(1.0)
-    ]))
-    transformerNameList.append('invert__')
+# # invert every pixel, i.e. do a 255-v per channel
+# for num in [1]:
+#     transformerList.append(iaa.Sequential([
+#         iaa.Invert(1.0)
+#     ]))
+#     transformerNameList.append('invert__')s
 
     
 ##Space transforms
