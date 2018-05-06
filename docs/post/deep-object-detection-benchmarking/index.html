@@ -278,28 +278,95 @@ image. We provide some visual examples of each kind of image transform below.</p
 
 <h5 id="systems-overview">Systems Overview</h5>
 
+<p>Our system processing pipeline consits of a general processing scheme of CPU-&gt;GPU-&gt;CPU. We perform initial
+image transfromations on our CPU based system. Then, these images are shipped to a GPU based cluster and
+other GPU based systems to perform inference. During inference, a set of json object output files are generated
+containing the predicted bounding boxes, classes, and confidence scores over every image. These output
+files are then sent back to our CPU based system where we convert bounding boxes and confidence scores
+to hard predictions. Once the hard predictions of objects has been made, we use some parallelized CPU
+based scripts to generate precision and recall values over all combinations of models, transforms,
+and class (10 models * 50 transforms * 88 classes). We then analyze these results in an .ipynb, which can be
+seen below in the results section.</p>
+
 <p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/pipeline.png" alt="Pipeline" title="Pipeline" /></p>
-
-<h5 id="languages-and-frameworks-utilized">Languages and Frameworks Utilized</h5>
-
-<p>S</p>
 
 <h2 id="results">Results</h2>
 
-<table class="table">
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-    </tr>
-    <tr>
-        <td>Dan</td>
-        <td>21</td>
-    </tr>
-    <tr>
-        <td>Jane</td>
-        <td>45</td>
-    </tr>
-</table>
+<p>In this section we detail the results of our analysis. The full set of results from the IPython notebook can be
+viewed at the link below. We discuss the metrics we currently use for performane analysis, and discuss
+some of the plots we generate, and how they can be used to gain further insight into the performance of
+particular combinations of model type, image tranform type, and class category.</p>
+
+<p><a href="https://dcompgriff.github.io/ML_OD_Benchmarking/publications/Average_Metrics_Analysis.html">IPython Notebook Analysis Results</a></p>
+
+<h5 id="current-metrics">Current Metrics</h5>
+
+<p>Currently, we rely on straight Precision and Recall based metrics to perform analysis. We&rsquo;ve found that most papers
+produce either precision only metrics, or metrics such as unweighted mean average precision, which favor
+high precision and low recall models (which is somewhat stated in the PASCAL paper and the original
+Information Retrieval paper for which mean average precision is based on). We&rsquo;ve also noticed that for many papers,
+the numbers presented tend to be only for &ldquo;favorable&rdquo; class categories, and aren&rsquo;t given the proper context
+considering class skew and P/R curve distributions. For the most part, we&rsquo;ve found that the results shown in papers
+are not good indications of actual network performance, and that the metrics used are more useful for discriminating
+between &ldquo;rough average performances&rdquo; over sets of tasks, and should <strong>not</strong> be used for determining network
+performance on a specific task.</p>
+
+<ul>
+<li>Precision and Recall
+
+<ul>
+<li>Precision: How confident are we when the model predicts a dog, that the object is a dog, and not something else?</li>
+<li>Recall: How many of the instances within a class are actually found?</li>
+</ul></li>
+<li>Combinations
+
+<ul>
+<li>For each combination of &ldquo;Model, Image Transform Type, Class Category&rdquo;, we generate a single precision and recall value.
+We then use OLAP style analysis over these values to aggregate and average performance metrics to get better insight.</li>
+</ul></li>
+</ul>
+
+<h6 id="precision-recall-histograms">Precision Recall Histograms</h6>
+
+<p>Over all (Model,Transform,Class)
+ Average Precision is around 0.53
+ Recall tends to be very low</p>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/pr_graph.png" alt="Short Summary" /></p>
+
+<h5 id="precision-per-model-transform-class">Precision per (model,transform,class)</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per.png" alt="Short Summary" /></p>
+
+<h5 id="recall-per-model-transform-class">Recall per (model,transform,class)</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/recall_per.png" alt="Short Summary" /></p>
+
+<h5 id="precision-difference-per-model-transform-class">Precision difference per (model,transform,class)</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_diff_per.png" alt="Short Summary" /></p>
+
+<h5 id="precision-per-class-transform-avg-over-model">Precision per (class,transform) avg over model</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per_allmodel_1.png" alt="Short Summary" /></p>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per_allmodel_2.png" alt="Short Summary" /></p>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per_allmodel_3.png" alt="Short Summary" /></p>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per_allmodel_4.png" alt="Short Summary" /></p>
+
+<h5 id="precision-per-model-avg-over-transform-and-class">Precision per (model) avg over transform and class</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_per_model.png" alt="Short Summary" /></p>
+
+<h5 id="recall-per-model-avg-over-transform-and-class">Recall per (model) avg over transform and class</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/recall_per_model.png" alt="Short Summary" /></p>
+
+<h5 id="average-precision-difference-given-each-transform-category">Average precision difference given each transform category</h5>
+
+<p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/precision_avg_diff_per_category.png" alt="Short Summary" /></p>
 
 <h2 id="discussion">Discussion</h2>
 
@@ -307,12 +374,9 @@ image. We provide some visual examples of each kind of image transform below.</p
 
 <p><img src="https://dcompgriff.github.io/ML_OD_Benchmarking/img/short_summary_meme.png" alt="Short Summary" /></p>
 
-<h2 id="future-work">Future Work</h2>
+<h5 id="long-summary">Long Summary</h5>
 
-<h5 id="metrics-specific-to-error-variation-sensitivity-for-object-detection">Metrics Specific to Error/Variation Sensitivity for Object Detection</h5>
-
-<p>Modern machine learning performance metrics are generally centered on precision, recall, AUC for ROC curves,
-Precision/Recall Curves, and</p>
+<h2 id="project-next-steps">Project Next Steps</h2>
 
 <h2 id="special-thanks">Special Thanks</h2>
 

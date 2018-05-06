@@ -200,28 +200,96 @@ image. We provide some visual examples of each kind of image transform below.
 
 ##### Systems Overview
 
+Our system processing pipeline consits of a general processing scheme of CPU->GPU->CPU. We perform initial 
+image transfromations on our CPU based system. Then, these images are shipped to a GPU based cluster and 
+other GPU based systems to perform inference. During inference, a set of json object output files are generated 
+containing the predicted bounding boxes, classes, and confidence scores over every image. These output 
+files are then sent back to our CPU based system where we convert bounding boxes and confidence scores 
+to hard predictions. Once the hard predictions of objects has been made, we use some parallelized CPU 
+based scripts to generate precision and recall values over all combinations of models, transforms, 
+and class (10 models * 50 transforms * 88 classes). We then analyze these results in an .ipynb, which can be 
+seen below in the results section.
+
 ![Pipeline](/img/pipeline.png "Pipeline")
-
-##### Languages and Frameworks Utilized
-S
-
 
 ## Results
 
-<table class="table">
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-    </tr>
-    <tr>
-        <td>Dan</td>
-        <td>21</td>
-    </tr>
-    <tr>
-        <td>Jane</td>
-        <td>45</td>
-    </tr>
-</table>
+In this section we detail the results of our analysis. The full set of results from the IPython notebook can be 
+viewed at the link below. We discuss the metrics we currently use for performane analysis, and discuss 
+some of the plots we generate, and how they can be used to gain further insight into the performance of 
+particular combinations of model type, image tranform type, and class category.
+
+[IPython Notebook Analysis Results](/publications/Average_Metrics_Analysis.html )
+
+##### Current Metrics
+
+Currently, we rely on straight Precision and Recall based metrics to perform analysis. We've found that most papers 
+produce either precision only metrics, or metrics such as unweighted mean average precision, which favor 
+high precision and low recall models (which is somewhat stated in the PASCAL paper and the original 
+Information Retrieval paper for which mean average precision is based on). We've also noticed that for many papers, 
+the numbers presented tend to be only for "favorable" class categories, and aren't given the proper context 
+considering class skew and P/R curve distributions. For the most part, we've found that the results shown in papers 
+are not good indications of actual network performance, and that the metrics used are more useful for discriminating 
+between "rough average performances" over sets of tasks, and should **not** be used for determining network 
+performance on a specific task.
+
++ Precision and Recall
+ + Precision: How confident are we when the model predicts a dog, that the object is a dog, and not something else?
+ + Recall: How many of the instances within a class are actually found?
++ Combinations
+ + For each combination of "Model, Image Transform Type, Class Category", we generate a single precision and recall value. 
+ We then use OLAP style analysis over these values to aggregate and average performance metrics to get better insight. 
+ 
+
+ 
+###### Precision Recall Histograms
+ 
+ Over all (Model,Transform,Class)
+ Average Precision is around 0.53
+ Recall tends to be very low
+ 
+ ![Short Summary](/img/pr_graph.png)
+ 
+##### Precision per (model,transform,class)
+ 
+ ![Short Summary](/img/precision_per.png)
+ 
+##### Recall per (model,transform,class)
+ 
+ ![Short Summary](/img/recall_per.png)
+ 
+##### Precision difference per (model,transform,class)
+
+![Short Summary](/img/precision_diff_per.png)
+
+##### Precision per (class,transform) avg over model
+
+![Short Summary](/img/precision_per_allmodel_1.png)
+
+![Short Summary](/img/precision_per_allmodel_2.png)
+
+![Short Summary](/img/precision_per_allmodel_3.png)
+
+![Short Summary](/img/precision_per_allmodel_4.png)
+
+##### Precision per (model) avg over transform and class
+
+![Short Summary](/img/precision_per_model.png)
+
+##### Recall per (model) avg over transform and class
+
+![Short Summary](/img/recall_per_model.png)
+
+##### Average precision difference given each transform category
+
+
+![Short Summary](/img/precision_avg_diff_per_category.png)
+
+
+
+
+
+
 
 
 ## Discussion
@@ -231,13 +299,12 @@ S
 ![Short Summary](/img/short_summary_meme.png)
 
 
+##### Long Summary
 
-## Future Work
 
-##### Metrics Specific to Error/Variation Sensitivity for Object Detection
+## Project Next Steps
 
-Modern machine learning performance metrics are generally centered on precision, recall, AUC for ROC curves, 
-Precision/Recall Curves, and 
+
 
 ## Special Thanks
 
