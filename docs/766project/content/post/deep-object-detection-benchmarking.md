@@ -17,7 +17,7 @@ Dealing with object in images can loosely be broken down into 4 main categories 
 The first method of dealing with objects in images is "Object Classification". In this task, an entire image is taken to 
 represent a single kind of object, and the goal is to classify the image. The next, more advanced task is Object Classification 
 with "Localization". In this task, we try to determine two things. The first is where the object is within an image, and the second 
-is to classigy what object is in that location. The next task is "Object Detection". This builds on Object Classification 
+is to classify what object is in that location. The next task is "Object Detection". This builds on Object Classification 
 with Localization by finding multiple regions likely to have an object, then classifying each region as an individual object. The 
 final task is "Instance Segmentation" (Image Segmentation), where the meaningful objects within an image are organized into 
 singular segments. For our project, we focus on the "Object Detection" task. A visual representation of the different kinds of 
