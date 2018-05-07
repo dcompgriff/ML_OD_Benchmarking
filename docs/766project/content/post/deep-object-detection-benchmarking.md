@@ -117,8 +117,6 @@ summary of some of the state of the art networks, backbones, data sets, and kind
   + Simple aggregated performance metrics
   + Adversarial based analysis
 
-
-
 ##### Existing Systems or New Approach?
 
 We plan on benchmarking existing neural network designs and implementations that are
@@ -196,6 +194,58 @@ image. We provide some visual examples of each kind of image transform below.
 **Spatially Based Transforms**
 ![Spatially Based Transforms](/img/spatial_transforms.png "Spatially Based Transforms")
 
+**Set of All Transforms**
+
+transformNames = [
+'None',
+'gaussianblur_1',
+'gaussianblur_10',
+'gaussianblur_20',
+'superpixels_0p1',
+'superpixels_0p5',
+'superpixels_0p85',
+'colorspace_25',
+'colorspace_50',
+'averageblur_5_11',
+'medianblur_1',
+'sharpen_0',
+'sharpen_1',
+'sharpen_2',
+'addintensity_-80',
+'addintensity_80',
+'elementrandomintensity_1',
+'multiplyintensity_0p25',
+'multiplyintensity_2',
+'contrastnormalization_0',
+'contrastnormalization_1',
+'contrastnormalization_2',
+'elastic_1',
+'scaled_1p25',
+'scaled_0p75',
+'scaled_0p5',
+'scaled_(1p25, 1p0)',
+'scaled_(0p75, 1p0)',
+'scaled_(1p0, 1p25)',
+'scaled_(1p0, 0p75)',
+'translate_(0p1, 0p1)',
+'translate_(0p1, -0p1)',
+'translate_(-0p1, 0p1)',
+'translate_(-0p1, -0p1)',
+'translate_(0p1, 0)',
+'translate_(-0p1, 0)',
+'translate_(0, 0p1)',
+'translate_(0, -0p1)',
+'rotated_3',
+'rotated_5',
+'rotated_10',
+'rotated_45',
+'rotated_60',
+'rotated_90',
+'flipH',
+'flipV',
+'dropout',
+]
+
 ## System
 
 ##### Systems Overview
@@ -214,8 +264,10 @@ seen below in the results section.
 
 ## Results
 
-In this section we detail the results of our analysis. The full set of results from the IPython notebook can be 
-viewed at the link below. We discuss the metrics we currently use for performane analysis, and discuss 
+In this section we detail the results of our analysis. Below, we show and describe some of the main 
+plots we created during our analysis. However, many of the tables are descriptive examples of our 
+analysis are cut down. The full set of results from the IPython notebook can be viewed at the 
+link below. We discuss the metrics we currently use for performane analysis, and discuss 
 some of the plots we generate, and how they can be used to gain further insight into the performance of 
 particular combinations of model type, image tranform type, and class category.
 
@@ -244,44 +296,166 @@ performance on a specific task.
  
 ###### Precision Recall Histograms
  
- Over all (Model,Transform,Class)
- Average Precision is around 0.53
- Recall tends to be very low
+ The histograms below represent the precision and recall metrics for all model, transform, and class 
+ combinations. More specifically, say for the combination of model e2e_faster_rcnn_R-50-C4_2x, a 
+ transform of 'gaussianblur_1', and class label 'person', we measured a precision of 0.714 and a recall 
+ of 0.277 (Given an Intersection over Union of 0.5). For each of the potential combinations, we generated a 
+ precision and recall, and plotted all of the measures as histograms. We did this to give us a general idea 
+ of the overall performance of the deep object detection networks. Our average precision was around 0.53, 
+ and for some classes was much higher. However, for most classes, recall was 0.25 or below (for some it 
+ was higher, but this was due to class skew and not *reliable* performance). The red squares below highlight 
+ the issues of combinations that had either high precision, or high recall, but most of these combinations 
+ were due to class skew. As we discuss later on, there tends to be a trend of high precision, low recall 
+ models for the COCO object detection data set that tends to be obscured by the traditional mean 
+ average precision metrics that are used to evaluate models. We talk more about these issues later.
  
  ![Short Summary](/img/pr_graph.png)
  
 ##### Precision per (model,transform,class)
  
+ The table below shows a slice of a table describing precision for a specific model (in this case, 
+ the model is "e2e_faster_rcnn_R-50-C4_2x"). The columns of the table relate to a specific class 
+ (except the first column), and each row corresponds to a specific transform over the original 
+ data set (with the first row "None" being the original image set). For example, the first precision 
+ entry in the table 0.694 means that for the e2e_faster_rcnn_R-50-C4_2x model, on the 
+ original image set, for the person class was 0.694.
+ 
  ![Short Summary](/img/precision_per.png)
  
 ##### Recall per (model,transform,class)
+ 
+ The table below shows a slice of a table describing recall for a specific model (in this case, 
+ the model is "e2e_faster_rcnn_R-50-C4_2x"). The columns of the table relate to a specific class 
+ (except the first column), and each row corresponds to a specific transform over the original 
+ data set (with the first row "None" being the original image set). For example, the first recall 
+ entry in the table 0.274 means that for the e2e_faster_rcnn_R-50-C4_2x model, on the 
+ original image set, for the person class was 0.274.
  
  ![Short Summary](/img/recall_per.png)
  
 ##### Precision difference per (model,transform,class)
 
+The table below shows a slice of a table describing the difference in model precision 
+between the original image set, and a specific transformed version of the original 
+image set. A positive value indicates a performance increase, and a negative value 
+indicates a performance decrease.
+
 ![Short Summary](/img/precision_diff_per.png)
 
 ##### Precision per (class,transform) avg over model
 
+Each box plot below corresponds to a single transform, and shows the average 
+precision over all models on a per class basis. The plot below shows the averaged 
+precision over all models on the original data set.
+
 ![Short Summary](/img/precision_per_allmodel_1.png)
+
+The plot below shows the averaged precision over all models on the gaussian 
+transform data set with a sigma of 1. 
 
 ![Short Summary](/img/precision_per_allmodel_2.png)
 
+The key usefulness of these plots is to compare how each transform affects the 
+aggregated performance over all models on a per class basis, or in general. For 
+example, the left plot below corresponds to the original data set, and the right plot 
+corresponds to the gaussian blurred data set. As you can see, for some classes, 
+precision increased, and for other classes, the precision decreased. 
+
 ![Short Summary](/img/precision_per_allmodel_3.png)
+
+In the plot below, the left plot corresponds to the original data set, and the right 
+plot corresponds to the gaussian blurred data set with a sigma of 20. As can be 
+seen from the plot, performance is severely degraded when a large amount 
+of gaussian blur is added to an image.
 
 ![Short Summary](/img/precision_per_allmodel_4.png)
 
 ##### Precision per (model) avg over transform and class
 
+The plot below shows a box plot for precision for each model, averaged over all 
+transformed image sets and classes. The yellow bar is the median performance, and 
+the green triangle is the average performance. On average, the precision for the retina net 
+101-64x4d-FPN model performs better than the other models. However, we can't 
+conclude anything about raw specific performance since the confidence bounds of 
+every set of models is nearly the same.
+
 ![Short Summary](/img/precision_per_model.png)
 
 ##### Recall per (model) avg over transform and class
+
+The plot below shows a box plot for recall for each model, averaged over all 
+transformed image sets and classes. The yellow bar is the median performance, and 
+the green triangle is the average performance. On average, the recall for the faster 
+rcnn 101-64x4d-FPN model performs better than the other models. However, we can't 
+conclude anything about raw specific performance since the confidence bounds of 
+every set of models is nearly the same. We can see that recall is very low across all models. 
+While there are some models with high recall (which doesn't tell us much since we don't 
+also see their corresponding recall), these cases are clearly outside of the confidence 
+bounds for the performance over all model.
 
 ![Short Summary](/img/recall_per_model.png)
 
 ##### Average precision difference given each transform category
 
+Each plot below corresponds to a single model. The bars correspond to the average precision 
+difference for the model between the original image set, and all image sets in the specified 
+"category" or transform, over all classes. The first two bars show the highest categories of 
+value based transforms and spatial based transforms. As can be seen from the plot, 
+value based variations in images affect model performance on average more than spatially 
+based transforms. The rest of the bars show the average precision difference over other 
+categories of transforms. The set of all plots, as with the other plots shown in this section, can 
+be viewed from the link to the full analysis outputs link at the beginning of this section. The set 
+of all categories is given below.
+
++ valueTransforms = [blurTransforms, regionTransforms, colorTransforms, lightingTransforms]
++ spatialTransforms = [scalingTransforms, orientationTransforms, translationTransforms, distortionTransforms]
++ blurTransforms = [ 'gaussianblur_1',
+'gaussianblur_10',
+'gaussianblur_20',
+'averageblur_5_11',
+'medianblur_1']
++ regionTransforms = [ 'superpixels_0p1',
+'superpixels_0p5',
+'superpixels_0p85',
+'averageblur_5_11']
++ colorTransforms = ['colorspace_25',
+'colorspace_50',
+'multiplyintensity_0p25',
+'multiplyintensity_2',
+'contrastnormalization_0',
+'contrastnormalization_1',
+'contrastnormalization_2']
++ lightingTransforms = ['sharpen_0',
+'sharpen_1',
+'sharpen_2',
+'addintensity_-80',
+'addintensity_80',
+'elementrandomintensity_1']
++ scalingTransforms = [ 'scaled_1p25',
+'scaled_0p75',
+'scaled_0p5',
+'scaled_(1p25, 1p0)',
+'scaled_(0p75, 1p0)',
+'scaled_(1p0, 1p25)',
+'scaled_(1p0, 0p75)']
++ orientationTransforms = [ 'rotated_3',
+'rotated_5',
+'rotated_10',
+'rotated_45',
+'rotated_60',
+'rotated_90',
+'flipH',
+'flipV']
++ translationTransforms = ['translate_(0p1, 0p1)',
+'translate_(0p1, -0p1)',
+'translate_(-0p1, 0p1)',
+'translate_(-0p1, -0p1)',
+'translate_(0p1, 0)',
+'translate_(-0p1, 0)',
+'translate_(0, 0p1)',
+'translate_(0, -0p1)']
++ distortionTransforms = ['elastic_1',
+'dropout']
 
 ![Short Summary](/img/precision_avg_diff_per_category.png)
 
@@ -301,8 +475,84 @@ performance on a specific task.
 
 ##### Long Summary
 
+###### Issues
+1) Most networks are super brittle and need more work to make them robust.
+  
++ Any image variation impacts performance.
++ Significant sensitivity to training image set.
+
+2) Most evaluation metrics are average metrics.
+ 
+ + Weighted average is disingenuous for performance across multiple classes.
+ + There should be a diminishing marginal benefit performance metric.
+ + Precision only (which most papers report) covers up low recall.
+ + Recall IoU, only shows recall profile, not coupled recall  and precision.
+ + The way in which multi-class P/R averages are generated is not well specified.
+
+##### Real World Guide
+1) Blur
+
++ Well defined boundary objects (cars, trains, bus, bench, etc…) small blur is bad
++ Less well defined boundary objects, or moving objects with more variety (people, dogs, birds, etc…) small blur tends to be good. 
+
+2) Image size
+
++ Applications with large objects are better. In fact, if dealing with small objects, artificially scale image size to increase network performance.
+
+3) Add contrast to your images.
+
++ Networks are very sensitive to the magnitude of relative intensity differences in images. Amplify these differences for improved performance.
+
+4) Locality based jitter and noise is really bad.
+
++ Severely decreases performance. (Brownian motion type deal)
+
+5) Center objects in images.
+
++ More centered objects are detected more often and more precisely than objects near edges.
+
+6) Region textures matter in an object.
+
++ Superpixel transforms show degraded performance for larger contiguous regions with same color and no textures.
+
+7) Hues and alternate color spaces
+
++ Adjusting hue values up increased performance on average. (Color contrasting affects)
+
 
 ## Project Next Steps
+
+##### Next Steps for This Project?
+
+###### Sensitivity Analysis Toolkit.
+
+In our extensive literature review, we have not found any major initiatives or projects that are 
+focused on analyzing and quantifying the sensetivity of an object detection network 
+to natural variation in images. We believe that there would be value in working towards 
+trying to create a toolkit for testing and measuring object detection sensetivity for 
+both research and practical applications.
+
+###### New Sensitivity Metrics.
+
+Another thing that we've noticed in our literature review was that many of the performance 
+metrics that are used for measuring deep object detection networks come from traditional 
+machine learning and information retrieval areas. However, rich performance metrics 
+related to the image object detection context are lacking. Sensitivity metrics, like the 
+ones we've showed above related to kinds of variation are benneficial. Other rich 
+metrics could also be feasibly constructed such as objectness variability for specific 
+classes. New sensitivity metrics such as these would provide better insight for developing 
+and applying deep object detection networks, which is currently ambiguous and undirected.
+
+##### Next Steps for This Area?
+
++ Amount of re-training needed to reduce errors?
++ Architectural changes/constraints needed to reduce errors?
++ How much reducing network size for memory/speed affects errors?
+
+Notes
+Code on Github
+4 days to run on our hardware (parallelize by 8)
+4*8=32 days to run on single GPU single core system
 
 
 
